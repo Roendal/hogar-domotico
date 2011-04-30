@@ -1,4 +1,4 @@
-package jadex.bdi.examples.cleanerworld_classic.environment;
+package environment;
 
 import jadex.bdi.examples.cleanerworld_classic.Chargingstation;
 import jadex.bdi.examples.cleanerworld_classic.Cleaner;

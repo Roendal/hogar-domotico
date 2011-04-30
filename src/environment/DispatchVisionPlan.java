@@ -1,4 +1,4 @@
-package jadex.bdi.examples.cleanerworld_classic.environment;
+package environment;
 
 import jadex.base.fipa.Done;
 import jadex.bdi.examples.cleanerworld_classic.Cleaner;
