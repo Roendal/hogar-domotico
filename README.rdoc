@@ -11,7 +11,8 @@ Una vez instalado el proyecto se importará como un proyecto ya existente de Ecl
 
 
 = Lanzar el proyecto
-* Para ejecutar Jadex debemos hacer click derecho sobre el proyecto y pulsar "Run As" -> "Java Application"
+Para ejecutar:
+* Jadex debemos hacer click derecho sobre el proyecto y pulsar "Run As" -> "Java Application"
 * Seleccionamos la clase "Starter" del paquete "jadex.base".
 
 Es posible que en este punto recibamos el error de que Starter hace referencia un proyecto "jadex-example-project" que no existe. Para solucionarlo:
