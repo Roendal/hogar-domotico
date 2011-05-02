@@ -16,6 +16,12 @@
 	</componenttypes>
 	
 	<applications>
+		<application name="Four cleaners local">
+			<components>
+				<component type="EnvironmentLocal" master="true"/>
+				<component type="CleanerLocal" number="4"/>
+			</components>
+		</application>
 		<application name="Two cleaners local">
 			<components>
 				<component type="EnvironmentLocal" master="true"/>
