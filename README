@@ -1,0 +1,26 @@
+=Hogar domótico
+Este proyecto se trata de la cuarta entrega para la asignatura de Laboratorio de Sistemas Inteligentes impartida en la ETSIT-UPM durante el segundo semestre del curso 2010-2011. Se trata de una entrega centrada en un sistema multiagente donde cada agente debe estar basado en la estructura BDI.
+
+Para ello se hará uso de la plataforma Jadex preferiblemente en el IDE Eclipse y el plugin Maven.
+
+
+=Instalación
+Para poder instalar correctamente y ejecutar el proyecto será necesario disponer de eclipse, preferiblemente en su última versión, y el plugin Maven (http://m2eclipse.sonatype.org/)
+
+Una vez instalado el proyecto se importará como un proyecto ya existente de Eclipse. 
+
+
+=Lanzar el proyecto
+* Para ejecutar Jadex debemos hacer click derecho sobre el proyecto y pulsar "Run As" -> "Java Application"
+* Seleccionamos la clase "Starter" del paquete "jadex.base".
+
+Es posible que en este punto recibamos el error de que Starter hace referencia un proyecto "jadex-example-project" que no existe. Para solucionarlo:
+* Abrimos el menú "Run" -> "Run configurations..."
+* En el menú lateral debe apareder "Java Application" y dentro "Starter".
+* Lo seleccionamos y cambiamos a la derecha el proyecto objetivo a "Hogar domotico" en vez de "jadex-example-project"
+
+Esto lanzará la plataforma de Jadex. Si no existiera ningún proyecto precargado, basta con abrir "example.jccpproject.xml". En posteriores lanzamientos debería seleccioanrse automáticamente.
+
+
+=Problemas
+Al ser un proyecto en desarrollo es posible que surjan gran cantidad de problemas. Si esto ocurriera hacednos llegar la información del error. Gracias.
