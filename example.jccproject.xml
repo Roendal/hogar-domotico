@@ -29,7 +29,7 @@
 		</p0:properties>
 		<p0:properties __ID="17" type="spanel">
 			<p0:property __ID="18" type="model">jadex/bdi/examples/cleanerworld_classic/CleanerWorld.application.xml</p0:property>
-			<p0:property __ID="19" type="config">Four cleaners local</p0:property>
+			<p0:property __ID="19" type="config">One cleaner local</p0:property>
 			<p0:property __ID="20" type="startsuspended">false</p0:property>
 			<p0:property __ID="21" type="autogenerate">false</p0:property>
 			<p0:property __ID="22" type="name">CleanerWorld</p0:property>
@@ -80,16 +80,16 @@
 				<p1:String xmlns:p1="typeinfo:java.lang" __ID="16" content="sender"></p1:String>
 			</key>
 			<value>
-				<p2:ComponentIdentifier xmlns:p2="typeinfo:jadex.bridge" __ID="17" name="jcc@avalon_7e4">
+				<p2:ComponentIdentifier xmlns:p2="typeinfo:jadex.bridge" __ID="17" name="jcc@avalon_775">
 					<resolvers>
 						<p2:ComponentIdentifier__0 __ID="18"></p2:ComponentIdentifier__0>
 					</resolvers>
 					<addresses>
 						<p1:String__3 xmlns:p1="typeinfo:java.lang" __ID="19">
 							<entries>
-								<p1:String __ID="20" content="nio-mtp://0:0:0:0:0:0:0:1:42492"></p1:String>
-								<p1:String __ID="21" content="nio-mtp://127.0.1.1:42492"></p1:String>
-								<p1:String __ID="22" content="nio-mtp://avalon:42492"></p1:String>
+								<p1:String __ID="20" content="nio-mtp://0:0:0:0:0:0:0:1:35372"></p1:String>
+								<p1:String __ID="21" content="nio-mtp://avalon:35372"></p1:String>
+								<p1:String __ID="22" content="nio-mtp://127.0.1.1:35372"></p1:String>
 							</entries>
 						</p1:String__3>
 					</addresses>
