@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+	<!--
 	Test application descriptor.
 -->
 <applicationtype xmlns="http://jadex.sourceforge.net/jadex-application"
@@ -7,43 +7,81 @@
 	xsi:schemaLocation="http://jadex.sourceforge.net/jadex-application 
 	                    http://jadex.sourceforge.net/jadex-application-2.0.xsd"
 	name="CleanerWorld" package="jadex.bdi.examples.cleanerworld">
-	
+
+	<imports>
+		<import>jadex.bdi.examples.cleanerworld_classic.*</import>
+		<import>java.awt.Rectangle</import>
+	</imports>
+
 	<componenttypes>
-		<componenttype name="EnvironmentLocal" filename="jadex/bdi/examples/cleanerworld_classic/environment/EnvironmentLocal.agent.xml"/>
-		<componenttype name="CleanerLocal" filename="jadex/bdi/examples/cleanerworld_classic/cleaner/CleanerLocal.agent.xml"/>
-		<componenttype name="EnvironmentRemote" filename="jadex/bdi/examples/cleanerworld_classic/environment/Environment.agent.xml"/>
-		<componenttype name="CleanerRemote" filename="jadex/bdi/examples/cleanerworld_classic/cleaner/Cleaner.agent.xml"/>
+		<componenttype name="EnvironmentLocal"
+			filename="jadex/bdi/examples/cleanerworld_classic/environment/EnvironmentLocal.agent.xml" />
+		<componenttype name="CleanerLocal"
+			filename="jadex/bdi/examples/cleanerworld_classic/cleaner/CleanerLocal.agent.xml" />
+		<componenttype name="EnvironmentRemote"
+			filename="jadex/bdi/examples/cleanerworld_classic/environment/Environment.agent.xml" />
+		<componenttype name="CleanerRemote"
+			filename="jadex/bdi/examples/cleanerworld_classic/cleaner/Cleaner.agent.xml" />
 	</componenttypes>
-	
+
 	<applications>
-		<application name="Four cleaners local">
+		<application name="Hogar domótico LSIN">
 			<components>
-				<component type="EnvironmentLocal" master="true"/>
-				<component type="CleanerLocal" number="4"/>
+				<component type="EnvironmentLocal" master="true" />
+				<component type="CleanerLocal" number="1">
+					<arguments>
+						<argument name="intial_location">
+							new Location(0.2, 0.2)
+						</argument>
+						<argument name="room_bounds">
+							new Rectangle(0,0,100,100)
+						</argument>
+					</arguments>
+				</component>
+				<component type="CleanerLocal" number="1">
+					<arguments>
+						<argument name="intial_location">
+							new Location(0.2, 0.2)
+						</argument>
+						<argument name="room_bounds">
+							new Rectangle(0,0,100,100)
+						</argument>
+					</arguments>
+				</component>
+				<component type="CleanerLocal" number="1">
+					<arguments>
+						<argument name="intial_location">
+							new Location(0.2, 0.2)
+						</argument>
+						<argument name="room_bounds">
+							new Rectangle(0,0,100,100)
+						</argument>
+					</arguments>
+				</component>
 			</components>
 		</application>
 		<application name="Two cleaners local">
 			<components>
-				<component type="EnvironmentLocal" master="true"/>
-				<component type="CleanerLocal" number="2"/>
+				<component type="EnvironmentLocal" master="true" />
+				<component type="CleanerLocal" number="2" />
 			</components>
 		</application>
 		<application name="One cleaner local">
 			<components>
-				<component type="EnvironmentLocal" master="true"/>
-				<component type="CleanerLocal"/>
+				<component type="EnvironmentLocal" master="true" />
+				<component type="CleanerLocal" />
 			</components>
 		</application>
 		<application name="Two cleaners remote">
 			<components>
-				<component type="EnvironmentRemote" master="true"/>
-				<component type="CleanerRemote" number="2"/>
+				<component type="EnvironmentRemote" master="true" />
+				<component type="CleanerRemote" number="2" />
 			</components>
 		</application>
 		<application name="One cleaner remote">
 			<components>
-				<component type="EnvironmentRemote" master="true"/>
-				<component type="CleanerRemote"/>
+				<component type="EnvironmentRemote" master="true" />
+				<component type="CleanerRemote" />
 			</components>
 		</application>
 	</applications>
