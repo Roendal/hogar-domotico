@@ -61,10 +61,16 @@ public class Environment implements IEnvironment
 		addWaste(new Waste(new Location(0.2, 0.5)));
 		addWaste(new Waste(new Location(0.3, 0.5)));
 		addWaste(new Waste(new Location(0.9, 0.9)));
-		addWastebin(new Wastebin(new Location(0.2, 0.2), 20));
-		addWastebin(new Wastebin(new Location(0.8, 0.1), 20));
-		addChargingStation(new Chargingstation(new Location(0.8, 0.8)));
-		addChargingStation(new Chargingstation(new Location(0.2, 0.4)));
+		//LSIN*Eduardo* Inicio
+		addWastebin(new Wastebin(new Location(0.214, 0.075), 20));
+		addWastebin(new Wastebin(new Location(0.214, 0.935), 20));
+		addWastebin(new Wastebin(new Location(0.87, 0.075), 20));
+		addWastebin(new Wastebin(new Location(0.87, 0.935), 20));
+		addChargingStation(new Chargingstation(new Location(0.284, 0.075)));
+		addChargingStation(new Chargingstation(new Location(0.284, 0.935)));
+		addChargingStation(new Chargingstation(new Location(0.94, 0.075)));
+		addChargingStation(new Chargingstation(new Location(0.94, 0.935)));
+		//LSIN*Eduardo* Fin
 	}
 
 	/**

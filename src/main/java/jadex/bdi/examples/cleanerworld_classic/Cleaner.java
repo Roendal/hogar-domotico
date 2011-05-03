@@ -1,5 +1,7 @@
 package jadex.bdi.examples.cleanerworld_classic;
 
+import java.awt.Rectangle;
+
 import jadex.commons.SUtil;
 
 
@@ -34,7 +36,7 @@ public class Cleaner extends LocationObject
 
 	/**
 	 *  Create a new Cleaner.
-	 */
+	 *//*
 	public Cleaner(Location location, String name, Waste carriedwaste, double vision, double chargestate)
 	{
 		setLocation(location);
@@ -43,7 +45,22 @@ public class Cleaner extends LocationObject
 		setCarriedWaste(carriedwaste);
 		setVisionRange(vision);
 		setChargestate(chargestate);
+	}*/
+	
+	//LSIN*Eduardo* Inicio
+	/**
+	 *  Create a new Cleaner.
+	 */
+	public Cleaner(Location location, Rectangle room_bounds, String name, Waste carriedwaste, double vision, double chargestate)
+	{
+		setLocation(location);
+		setId(name);
+		setName(name);
+		setCarriedWaste(carriedwaste);
+		setVisionRange(vision);
+		setChargestate(chargestate);
 	}
+	//LSIN*Eduardo* Fin
 
 	/**
 	 *  Get the chargestate of this Cleaner.

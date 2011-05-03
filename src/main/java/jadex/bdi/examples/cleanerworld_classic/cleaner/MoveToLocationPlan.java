@@ -11,6 +11,7 @@ import jadex.bdi.runtime.IGoal;
 import jadex.bdi.runtime.Plan;
 import jadex.commons.SUtil;
 
+import java.awt.Rectangle;
 import java.util.List;
 
 /**
@@ -79,8 +80,8 @@ public class MoveToLocationPlan extends Plan
 //		long start = System.currentTimeMillis();
 		
 		// Create a representation of myself.
-		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(),
-			getComponentName(),
+		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(),(Rectangle)getBeliefbase().getBelief("room_bounds").getFact(),
+				getComponentName(),
 			(Waste)getBeliefbase().getBelief("carriedwaste").getFact(),
 			((Number)getBeliefbase().getBelief("my_vision").getFact()).doubleValue(),
 			((Number)getBeliefbase().getBelief("my_chargestate").getFact()).doubleValue());

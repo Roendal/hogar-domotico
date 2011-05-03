@@ -22,6 +22,7 @@
 		<import>jadex.bdi.examples.cleanerworld_classic.*</import>
 		<import>java.util.*</import>
 		<import>java.util.logging.*</import>
+		<import>java.awt.Rectangle</import>
 		<import>jadex.commons.*</import>
 		<import>jadex.rules.rulesystem.rules.functions.*</import>
 	</imports>
@@ -65,6 +66,11 @@
 		<!-- The current cleaner location. -->
 		<belief name="my_location"  class="Location">
 			<fact>new Location(0.2, 0.2)</fact>
+		</belief>
+		
+		<!-- The current room bounds. -->
+		<belief name="room_bounds"  class="Location">
+			<fact>new Rectangle(0,0,50,50)</fact>
 		</belief>
 
 		<!-- The speed. -->

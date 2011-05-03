@@ -1,5 +1,7 @@
 package jadex.bdi.examples.cleanerworld_classic.cleaner;
 
+import java.awt.Rectangle;
+
 import jadex.bdi.examples.cleanerworld_classic.Cleaner;
 import jadex.bdi.examples.cleanerworld_classic.IEnvironment;
 import jadex.bdi.examples.cleanerworld_classic.Location;
@@ -22,6 +24,7 @@ public class LocalGetVisionActionPlan extends	Plan
 	{
 		IEnvironment	environment	= (IEnvironment)getBeliefbase().getBelief("environment").getFact();
 		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(),
+			(Rectangle)getBeliefbase().getBelief("room_bounds").getFact(),
 			getComponentName(),
 			(Waste)getBeliefbase().getBelief("carriedwaste").getFact(),
 			((Number)getBeliefbase().getBelief("my_vision").getFact()).doubleValue(),

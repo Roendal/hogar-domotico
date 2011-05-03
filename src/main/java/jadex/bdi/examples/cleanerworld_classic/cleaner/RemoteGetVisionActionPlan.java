@@ -1,5 +1,7 @@
 package jadex.bdi.examples.cleanerworld_classic.cleaner;
 
+import java.awt.Rectangle;
+
 import jadex.base.fipa.Done;
 import jadex.bdi.examples.cleanerworld_classic.Cleaner;
 import jadex.bdi.examples.cleanerworld_classic.Location;
@@ -21,7 +23,9 @@ public class RemoteGetVisionActionPlan extends RemoteActionPlan
 	 */
 	public void body()
 	{
-		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(), getComponentName(),
+		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(),
+			(Rectangle)getBeliefbase().getBelief("room_bounds").getFact(), 
+			getComponentName(),
 			(Waste)getBeliefbase().getBelief("carriedwaste").getFact(),
 			((Number)getBeliefbase().getBelief("my_vision").getFact()).doubleValue(),
 			((Number)getBeliefbase().getBelief("my_chargestate").getFact()).doubleValue());

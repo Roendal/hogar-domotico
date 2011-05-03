@@ -30,7 +30,10 @@ public class Chargingstation extends LocationObject
 	 */
 	public Chargingstation(Location location)
 	{
-		this("Chargingstation #" + instancecnt++, location);
+		//LSIN*Eduardo* Inicio
+		//this("Chargingstation #" + instancecnt++, location);
+		this("#" + instancecnt++, location);
+		//LSIN*Eduardo* Fin
 	}
 
 	/**

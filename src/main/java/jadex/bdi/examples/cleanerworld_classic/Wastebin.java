@@ -40,8 +40,11 @@ public class Wastebin extends LocationObject
 	 *  Create a new wastebin.
 	 */
 	public Wastebin(Location location, int capacity)
-	{
-		this("Wastebin #" + instancecnt++, location, capacity);
+	{	
+		//LSIN*Eduardo* Inicio
+		//this("Wastebin #" + instancecnt++, location, capacity);
+		this("#" + instancecnt++, location, capacity);
+		//LSIN*Eduardo* Fin
 	}
 
 	/**

@@ -30,7 +30,7 @@
 				<component type="EnvironmentLocal" master="true" />
 				<component type="CleanerLocal" number="1">
 					<arguments>
-						<argument name="intial_location">
+						<argument name="my_location">
 							new Location(0.2, 0.2)
 						</argument>
 						<argument name="room_bounds">
@@ -40,7 +40,7 @@
 				</component>
 				<component type="CleanerLocal" number="1">
 					<arguments>
-						<argument name="intial_location">
+						<argument name="my_location">
 							new Location(0.2, 0.2)
 						</argument>
 						<argument name="room_bounds">
@@ -50,7 +50,7 @@
 				</component>
 				<component type="CleanerLocal" number="1">
 					<arguments>
-						<argument name="intial_location">
+						<argument name="my_location">
 							new Location(0.2, 0.2)
 						</argument>
 						<argument name="room_bounds">
