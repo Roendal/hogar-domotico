@@ -2,10 +2,10 @@
 <p0:properties xmlns:p0="http://jadex.sourceforge.net/jadexconf" __ID="0">
 	<p0:property __ID="1" type="perspective">Starter</p0:property>
 	<p0:properties __ID="2" type="window">
-		<p0:property __ID="3" type="width">1368</p0:property>
-		<p0:property __ID="4" type="height">708</p0:property>
-		<p0:property __ID="5" type="x">-1</p0:property>
-		<p0:property __ID="6" type="y">25</p0:property>
+		<p0:property __ID="3" type="width">1456</p0:property>
+		<p0:property __ID="4" type="height">876</p0:property>
+		<p0:property __ID="5" type="x">-8</p0:property>
+		<p0:property __ID="6" type="y">-8</p0:property>
 		<p0:property __ID="7" type="extendedState">6</p0:property>
 		<p0:property __ID="8" type="console_on">false</p0:property>
 		<p0:property __ID="9" type="jccexit">shutdown</p0:property>
@@ -62,12 +62,12 @@
 		</entry>
 		<entry __ID="9">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="10" content="ontology"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="10" content="in_reply_to"></p1:String>
 			</key>
 		</entry>
 		<entry __ID="11">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="12" content="in_reply_to"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="12" content="ontology"></p1:String>
 			</key>
 		</entry>
 		<entry __ID="13">
@@ -77,48 +77,56 @@
 		</entry>
 		<entry __ID="15">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="16" content="sender"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="16" content="content"></p1:String>
+			</key>
+		</entry>
+		<entry __ID="17">
+			<key>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="18" content="sender"></p1:String>
 			</key>
 			<value>
-				<p2:ComponentIdentifier xmlns:p2="typeinfo:jadex.bridge" __ID="17" name="jcc@avalon_775">
+				<p2:ComponentIdentifier xmlns:p2="typeinfo:jadex.bridge" __ID="19" name="jcc@Avalon_aaa">
 					<resolvers>
-						<p2:ComponentIdentifier__0 __ID="18"></p2:ComponentIdentifier__0>
+						<p2:ComponentIdentifier__0 __ID="20"></p2:ComponentIdentifier__0>
 					</resolvers>
 					<addresses>
-						<p1:String__3 xmlns:p1="typeinfo:java.lang" __ID="19">
+						<p1:String__11 xmlns:p1="typeinfo:java.lang" __ID="21">
 							<entries>
-								<p1:String __ID="20" content="nio-mtp://0:0:0:0:0:0:0:1:35372"></p1:String>
-								<p1:String __ID="21" content="nio-mtp://avalon:35372"></p1:String>
-								<p1:String __ID="22" content="nio-mtp://127.0.1.1:35372"></p1:String>
+								<p1:String __ID="22" content="nio-mtp://fe80:0:0:0:cc7c:e9:d0c6:d4e%12:51791"></p1:String>
+								<p1:String __ID="23" content="nio-mtp://avalon:51791"></p1:String>
+								<p1:String __ID="24" content="nio-mtp://192.168.80.1:51791"></p1:String>
+								<p1:String __ID="25" content="nio-mtp://192.168.224.1:51791"></p1:String>
+								<p1:String __ID="26" content="nio-mtp://2001:720:1500:55:cc7c:e9:d0c6:d4e:51791"></p1:String>
+								<p1:String __ID="27" content="nio-mtp://172.17.1.116:51791"></p1:String>
+								<p1:String __ID="28" content="nio-mtp://2001:720:1500:55:716d:eeff:8576:a8bb:51791"></p1:String>
+								<p1:String __ID="29" content="nio-mtp://fe80:0:0:0:9445:29f9:7cd4:e884%13:51791"></p1:String>
+								<p1:String __ID="30" content="nio-mtp://138.4.7.27:51791"></p1:String>
+								<p1:String __ID="31" content="nio-mtp://fe80:0:0:0:394a:b717:4d10:e1fb%22:51791"></p1:String>
+								<p1:String __ID="32" content="nio-mtp://fe80:0:0:0:f52b:7996:24e5:fbe3%21:51791"></p1:String>
 							</entries>
-						</p1:String__3>
+						</p1:String__11>
 					</addresses>
 				</p2:ComponentIdentifier>
 			</value>
 		</entry>
-		<entry __ID="23">
+		<entry __ID="33">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="24" content="content"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="34" content="reply_by"></p1:String>
 			</key>
 		</entry>
-		<entry __ID="25">
+		<entry __ID="35">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="26" content="encoding"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="36" content="encoding"></p1:String>
 			</key>
 		</entry>
-		<entry __ID="27">
+		<entry __ID="37">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="28" content="reply_by"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="38" content="language"></p1:String>
 			</key>
 		</entry>
-		<entry __ID="29">
+		<entry __ID="39">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="30" content="language"></p1:String>
-			</key>
-		</entry>
-		<entry __ID="31">
-			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="32" content="performative"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="40" content="performative"></p1:String>
 			</key>
 		</entry>
 	</entries>
