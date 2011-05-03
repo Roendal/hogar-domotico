@@ -2,16 +2,16 @@
 <p0:properties xmlns:p0="http://jadex.sourceforge.net/jadexconf" __ID="0">
 	<p0:property __ID="1" type="perspective">Starter</p0:property>
 	<p0:properties __ID="2" type="window">
-		<p0:property __ID="3" type="width">1366</p0:property>
-		<p0:property __ID="4" type="height">703</p0:property>
-		<p0:property __ID="5" type="x">-53</p0:property>
-		<p0:property __ID="6" type="y">40</p0:property>
-		<p0:property __ID="7" type="extendedState">0</p0:property>
+		<p0:property __ID="3" type="width">1368</p0:property>
+		<p0:property __ID="4" type="height">708</p0:property>
+		<p0:property __ID="5" type="x">-1</p0:property>
+		<p0:property __ID="6" type="y">25</p0:property>
+		<p0:property __ID="7" type="extendedState">6</p0:property>
 		<p0:property __ID="8" type="console_on">false</p0:property>
 		<p0:property __ID="9" type="jccexit">shutdown</p0:property>
 	</p0:properties>
 	<p0:properties __ID="10" type="Starter">
-		<p0:property __ID="11" type="leftsplit_location">386</p0:property>
+		<p0:property __ID="11" type="leftsplit_location">389</p0:property>
 		<p0:property __ID="12" type="mainsplit_location">261</p0:property>
 		<p0:property __ID="13" type="checking">true</p0:property>
 		<p0:properties __ID="14" type="mpanel">
@@ -29,7 +29,7 @@
 		</p0:properties>
 		<p0:properties __ID="17" type="spanel">
 			<p0:property __ID="18" type="model">jadex/bdi/examples/cleanerworld_classic/CleanerWorld.application.xml</p0:property>
-			<p0:property __ID="19" type="config">Two cleaners local</p0:property>
+			<p0:property __ID="19" type="config">Four cleaners local</p0:property>
 			<p0:property __ID="20" type="startsuspended">false</p0:property>
 			<p0:property __ID="21" type="autogenerate">false</p0:property>
 			<p0:property __ID="22" type="name">CleanerWorld</p0:property>
@@ -62,12 +62,12 @@
 		</entry>
 		<entry __ID="9">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="10" content="in_reply_to"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="10" content="ontology"></p1:String>
 			</key>
 		</entry>
 		<entry __ID="11">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="12" content="ontology"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="12" content="in_reply_to"></p1:String>
 			</key>
 		</entry>
 		<entry __ID="13">
@@ -77,52 +77,48 @@
 		</entry>
 		<entry __ID="15">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="16" content="content"></p1:String>
-			</key>
-		</entry>
-		<entry __ID="17">
-			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="18" content="sender"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="16" content="sender"></p1:String>
 			</key>
 			<value>
-				<p2:ComponentIdentifier xmlns:p2="typeinfo:jadex.bridge" __ID="19" name="jcc@Avalon_822">
+				<p2:ComponentIdentifier xmlns:p2="typeinfo:jadex.bridge" __ID="17" name="jcc@avalon_7e4">
 					<resolvers>
-						<p2:ComponentIdentifier__0 __ID="20"></p2:ComponentIdentifier__0>
+						<p2:ComponentIdentifier__0 __ID="18"></p2:ComponentIdentifier__0>
 					</resolvers>
 					<addresses>
-						<p1:String__7 xmlns:p1="typeinfo:java.lang" __ID="21">
+						<p1:String__3 xmlns:p1="typeinfo:java.lang" __ID="19">
 							<entries>
-								<p1:String __ID="22" content="nio-mtp://avalon:51286"></p1:String>
-								<p1:String __ID="23" content="nio-mtp://192.168.224.1:51286"></p1:String>
-								<p1:String __ID="24" content="nio-mtp://fe80:0:0:0:9445:29f9:7cd4:e884%13:51286"></p1:String>
-								<p1:String __ID="25" content="nio-mtp://fe80:0:0:0:394a:b717:4d10:e1fb%22:51286"></p1:String>
-								<p1:String __ID="26" content="nio-mtp://192.168.80.1:51286"></p1:String>
-								<p1:String __ID="27" content="nio-mtp://fe80:0:0:0:f52b:7996:24e5:fbe3%21:51286"></p1:String>
-								<p1:String __ID="28" content="nio-mtp://192.168.1.11:51286"></p1:String>
+								<p1:String __ID="20" content="nio-mtp://0:0:0:0:0:0:0:1:42492"></p1:String>
+								<p1:String __ID="21" content="nio-mtp://127.0.1.1:42492"></p1:String>
+								<p1:String __ID="22" content="nio-mtp://avalon:42492"></p1:String>
 							</entries>
-						</p1:String__7>
+						</p1:String__3>
 					</addresses>
 				</p2:ComponentIdentifier>
 			</value>
 		</entry>
+		<entry __ID="23">
+			<key>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="24" content="content"></p1:String>
+			</key>
+		</entry>
+		<entry __ID="25">
+			<key>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="26" content="encoding"></p1:String>
+			</key>
+		</entry>
+		<entry __ID="27">
+			<key>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="28" content="reply_by"></p1:String>
+			</key>
+		</entry>
 		<entry __ID="29">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="30" content="reply_by"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="30" content="language"></p1:String>
 			</key>
 		</entry>
 		<entry __ID="31">
 			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="32" content="encoding"></p1:String>
-			</key>
-		</entry>
-		<entry __ID="33">
-			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="34" content="language"></p1:String>
-			</key>
-		</entry>
-		<entry __ID="35">
-			<key>
-				<p1:String xmlns:p1="typeinfo:java.lang" __ID="36" content="performative"></p1:String>
+				<p1:String xmlns:p1="typeinfo:java.lang" __ID="32" content="performative"></p1:String>
 			</key>
 		</entry>
 	</entries>
