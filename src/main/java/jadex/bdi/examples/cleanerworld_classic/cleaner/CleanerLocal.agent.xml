@@ -65,12 +65,15 @@
 
 		<!-- The current cleaner location. -->
 		<belief name="my_location"  class="Location">
-			<fact>new Location(0.2, 0.2)</fact>
+			<fact>CleanerLocationManager.newInitialLocation()</fact>
 		</belief>
 		
 		<!-- The current room bounds. -->
-		<belief name="room_bounds"  class="Location">
-			<fact>new Rectangle(0,0,50,50)</fact>
+		<belief name="room_upper_left_corner"  class="Location">
+			<fact>CleanerLocationManager.newUpperLeftCorner()</fact>
+		</belief>
+		<belief name="room_bottom_right_corner"  class="Location">
+			<fact>CleanerLocationManager.newBottomRightCorner()</fact>
 		</belief>
 
 		<!-- The speed. -->

@@ -33,25 +33,12 @@ public class Cleaner extends LocationObject
 	{
 		// Empty constructor required for JavaBeans (do not remove).
 	}
-
-	/**
-	 *  Create a new Cleaner.
-	 *//*
-	public Cleaner(Location location, String name, Waste carriedwaste, double vision, double chargestate)
-	{
-		setLocation(location);
-		setId(name);
-		setName(name);
-		setCarriedWaste(carriedwaste);
-		setVisionRange(vision);
-		setChargestate(chargestate);
-	}*/
 	
 	//LSIN*Eduardo* Inicio
 	/**
-	 *  Create a new Cleaner.
+	 *  Create a new Cleaner. Modified.
 	 */
-	public Cleaner(Location location, Rectangle room_bounds, String name, Waste carriedwaste, double vision, double chargestate)
+	public Cleaner(Location location, Location upper_left_corner, Location bottom_right_coner, String name, Waste carriedwaste, double vision, double chargestate)
 	{
 		setLocation(location);
 		setId(name);

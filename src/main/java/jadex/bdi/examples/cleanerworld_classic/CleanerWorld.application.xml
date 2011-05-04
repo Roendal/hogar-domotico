@@ -28,36 +28,7 @@
 		<application name="Hogar domótico LSIN">
 			<components>
 				<component type="EnvironmentLocal" master="true" />
-				<component type="CleanerLocal" number="1">
-					<arguments>
-						<argument name="my_location">
-							new Location(0.2, 0.2)
-						</argument>
-						<argument name="room_bounds">
-							new Rectangle(0,0,100,100)
-						</argument>
-					</arguments>
-				</component>
-				<component type="CleanerLocal" number="1">
-					<arguments>
-						<argument name="my_location">
-							new Location(0.2, 0.2)
-						</argument>
-						<argument name="room_bounds">
-							new Rectangle(0,0,100,100)
-						</argument>
-					</arguments>
-				</component>
-				<component type="CleanerLocal" number="1">
-					<arguments>
-						<argument name="my_location">
-							new Location(0.2, 0.2)
-						</argument>
-						<argument name="room_bounds">
-							new Rectangle(0,0,100,100)
-						</argument>
-					</arguments>
-				</component>
+				<component type="CleanerLocal" number="4" />
 			</components>
 		</application>
 		<application name="Two cleaners local">

@@ -80,8 +80,10 @@ public class MoveToLocationPlan extends Plan
 //		long start = System.currentTimeMillis();
 		
 		// Create a representation of myself.
-		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(),(Rectangle)getBeliefbase().getBelief("room_bounds").getFact(),
-				getComponentName(),
+		Cleaner cl = new Cleaner((Location)getBeliefbase().getBelief("my_location").getFact(),
+			(Location)getBeliefbase().getBelief("room_upper_left_corner").getFact(),
+			(Location)getBeliefbase().getBelief("room_bottom_right_corner").getFact(),
+			getComponentName(),
 			(Waste)getBeliefbase().getBelief("carriedwaste").getFact(),
 			((Number)getBeliefbase().getBelief("my_vision").getFact()).doubleValue(),
 			((Number)getBeliefbase().getBelief("my_chargestate").getFact()).doubleValue());
