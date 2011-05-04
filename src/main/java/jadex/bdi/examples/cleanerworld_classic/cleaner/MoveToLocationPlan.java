@@ -2,6 +2,7 @@ package jadex.bdi.examples.cleanerworld_classic.cleaner;
 
 import jadex.bdi.examples.cleanerworld_classic.Chargingstation;
 import jadex.bdi.examples.cleanerworld_classic.Cleaner;
+import jadex.bdi.examples.cleanerworld_classic.CleanerLocationManager;
 import jadex.bdi.examples.cleanerworld_classic.Location;
 import jadex.bdi.examples.cleanerworld_classic.Vision;
 import jadex.bdi.examples.cleanerworld_classic.Waste;
@@ -38,6 +39,9 @@ public class MoveToLocationPlan extends Plan
 	{
 		//long	time	= getRootGoal().getExecutionTime();
 		Location target = (Location)getParameter("location").getValue();
+		//LSIN*Eduardo* Inicio
+		target = CleanerLocationManager.rectify(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), target);
+		//LSIN*Eduardo* Fin
 		Location myloc = (Location)getBeliefbase().getBelief("my_location").getFact();
 		while(!myloc.isNear(target))
 		{

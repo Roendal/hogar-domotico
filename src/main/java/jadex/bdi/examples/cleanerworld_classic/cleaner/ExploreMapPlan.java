@@ -28,7 +28,6 @@ public class ExploreMapPlan extends Plan {
 	 * The plan body. LSIN*Eduardo*
 	 */
 	public void body() {
-		Location dest;
 		// Select randomly one of the seldom visited locations.
 		List mps = (List) getExpression("query_min_quantity").execute();
 		MapPoint mp = (MapPoint) mps.get(0);
@@ -39,9 +38,11 @@ public class ExploreMapPlan extends Plan {
 				break;
 		}
 		mp = (MapPoint) mps.get((int) (Math.random() * cnt));
-		dest = mp.getLocation();
-
-		dest = CleanerLocationManager.rectify(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest);
+		Location dest = mp.getLocation();
+		
+		//LSIN*Eduardo* Inicio
+		//dest = CleanerLocationManager.rectify(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest);
+		//LSIN*Eduardo* Fin
 		
 		IGoal moveto = createGoal("achievemoveto");
 		moveto.getParameter("location").setValue(dest);
