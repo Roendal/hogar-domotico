@@ -58,6 +58,7 @@ import javax.swing.event.ChangeListener;
  */
 public class EnvironmentGui extends JFrame {
 
+	
 	// LSIN*Eduardo* Inicio
 
 	@Override
@@ -609,12 +610,19 @@ public class EnvironmentGui extends JFrame {
 								.calculateMiddlePosition(EnvironmentGui.this));
 						setVisible(true);
 
+						//LSIN *Alicia* INICIO
+						final JLabel tiempoTranscurrido= new JLabel(); 
+						options.add(tiempoTranscurrido);
+						
 						Timer timer = new Timer(50, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								map.invalidate();
 								map.repaint();
+								env.addTiempo();
+								tiempoTranscurrido.setText(""+env.getTiempo());
 							}
 						});
+						//LSIN *Alicia* FIN
 						timer.start();
 					}
 				});
@@ -652,4 +660,5 @@ public class EnvironmentGui extends JFrame {
 		comp.paint(g);
 		g.translate(-bounds.x, -bounds.y);
 	}
+
 }

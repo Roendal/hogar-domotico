@@ -37,10 +37,15 @@ public class Environment implements IEnvironment
 
 	/** The cleaner ages. */
 	protected Map ages;
-
+	
+	//LSIN *Alicia* INICIO 
+	/** Tiempo transcurrido (en milisegundos) */
+	private long millis=0;
+	//LSIN *Alicia* FIN 
+	
 	/** The helper object for bean events. */
 	public SimplePropertyChangeSupport pcs;
-
+	
 	//-------- constructors --------
 
 	/**
@@ -48,6 +53,7 @@ public class Environment implements IEnvironment
 	 */
 	public Environment()
 	{
+
 		this.daytime = true;
 		this.cleaners = new ArrayList();
 		this.wastes = new ArrayList();
@@ -202,6 +208,24 @@ public class Environment implements IEnvironment
 
 	//-------- methods --------
 
+	//LSIN *Alicia* INICIO
+	/**
+	 * Devuelve el tiempo transcurrido en milisegundos
+	 * 
+	 * @return los milisegundos transcurridos hasta ese momento
+	 */
+	public synchronized long getTiempo(){
+		return this.millis;
+	}
+	/**
+	 * Incrementa el tiempo transcurrido en 50ms
+	 */
+	public synchronized void addTiempo(){
+		this.millis+=50;
+	}
+	
+	//LSIN *Alicia* FIN
+	
 	/**
 	 *  Get the complete vision.
 	 *  @return The current vision, null if failure.
