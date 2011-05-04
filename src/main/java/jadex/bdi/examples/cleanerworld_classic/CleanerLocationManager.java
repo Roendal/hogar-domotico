@@ -78,9 +78,20 @@ public class CleanerLocationManager {
 			double delta = bottom_right.getY() - rectified.getY();
 			rectified.setY(bottom_right.getY() + Math.min(delta, 0));
 		}
-		System.out.println("Rectificando: " + location.toString() + " to "
-				+ rectified.toString());
+		// System.out.println("Rectificando: " + location.toString() + " to "
+		// + rectified.toString());
 		return rectified;
 	}
 
+	public static Location randomLocationInRoom(int room) {
+		Location upper_left = rooms[room][UPPER_LEFT];
+		Location bottom_right = rooms[room][BOTTOM_RIGHT];
+		double width = bottom_right.getX() - upper_left.getX();
+		double height = upper_left.getY() - bottom_right.getY();
+
+		double x_dest = Math.random() * width + upper_left.getX();
+		double y_dest = Math.random() * height + bottom_right.getY();
+
+		return new Location(x_dest, y_dest);
+	}
 }
