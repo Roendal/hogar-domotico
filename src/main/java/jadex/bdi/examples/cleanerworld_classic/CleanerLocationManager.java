@@ -47,8 +47,27 @@ public class CleanerLocationManager {
 	}
 	
 	public static Location rectify(int room, Location location){
-		//TODO
-		return null;
+		Location upper_left = rooms[room][UPPER_LEFT];
+		Location bottom_right = rooms[room][BOTTOM_RIGHT];
+		Location rectified = (Location) location.clone();
+		
+		if (rectified.getX() < upper_left.getX()){
+			double delta = upper_left.getX() - rectified.getX();
+			rectified.setX(upper_left.getX() + delta);
+		}else if (rectified.getX() > bottom_right.getX()){
+			double delta = rectified.getX() - bottom_right.getX();
+			rectified.setX(bottom_right.getX() - delta);			
+		}
+		
+		if (rectified.getY() > upper_left.getY()){
+			double delta = rectified.getY() - upper_left.getY();
+			rectified.setY(upper_left.getY() - delta);
+		}else if (rectified.getY() < bottom_right.getY()){
+			double delta = bottom_right.getY() - rectified.getY();
+			rectified.setY(bottom_right.getY() + delta);			
+		}
+			
+		return rectified;
 	}
 	
 	

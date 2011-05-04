@@ -20,6 +20,9 @@ public class Cleaner extends LocationObject
 
 	/** Attribute for slot vision-range. */
 	protected double visionrange;
+	
+	/** LSIN*Eduardo* Attribute for room ID */
+	protected int room;
 
 	/** Attribute for slot name. */
 	protected String name;
@@ -46,7 +49,17 @@ public class Cleaner extends LocationObject
 		setCarriedWaste(carriedwaste);
 		setVisionRange(vision);
 		setChargestate(chargestate);
+		setRoom(room);
 	}
+
+	public void setRoom(int room) {
+		this.room = room;		
+	}
+	
+	public int getRoom() {
+		return this.room ;		
+	}
+
 	//LSIN*Eduardo* Fin
 
 	/**
