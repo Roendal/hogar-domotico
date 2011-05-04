@@ -382,7 +382,7 @@ public class EnvironmentGui extends JFrame {
 													+ (cleaners[i]
 															.getCarriedWaste() != null ? "yes"
 															: "no")
-													+ "%<br>"
+													+ "<br>"
 													+ "room: "
 													+ (cleaners[i]
 															.getRoom()) + "</html>");

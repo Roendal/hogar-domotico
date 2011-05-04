@@ -34,20 +34,14 @@ public class ExploreMapPlan extends Plan {
 		int cnt = 1;
 		for (; cnt < mps.size(); cnt++) {
 			MapPoint mp2 = (MapPoint) mps.get(cnt);
-			if (mp.getSeen() != mp2.getSeen())
+			if (CleanerLocationManager.isInsideRoom(((Number) getBeliefbase()
+					.getBelief("my_room").getFact()).intValue(), mp2.getLocation())){
+				mp = mp2;
 				break;
+			}
 		}
-		mp = (MapPoint) mps.get((int) (Math.random() * cnt));
+		//mp = (MapPoint) mps.get((int) (Math.random() * cnt));
 		Location dest = mp.getLocation();
-
-		// LSIN*Eduardo* Inicio
-		// Ignoramos el algoritmo anterior y ponemos una dirección aleatoria DENTRO de la habitación.
-
-		if (CleanerLocationManager.isOutsideRoom(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest)){
-			dest = CleanerLocationManager.randomLocationInRoom(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue());
-		}
-		// LSIN*Eduardo* Fin
-
 		IGoal moveto = createGoal("achievemoveto");
 		moveto.getParameter("location").setValue(dest);
 		// System.out.println("Created: "+dest+" "+this);

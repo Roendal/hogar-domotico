@@ -31,28 +31,10 @@
 				<component type="CleanerLocal" number="4" />
 			</components>
 		</application>
-		<application name="Two cleaners local">
-			<components>
-				<component type="EnvironmentLocal" master="true" />
-				<component type="CleanerLocal" number="2" />
-			</components>
-		</application>
-		<application name="One cleaner local">
+		<application name="One cleaner test">
 			<components>
 				<component type="EnvironmentLocal" master="true" />
 				<component type="CleanerLocal" />
-			</components>
-		</application>
-		<application name="Two cleaners remote">
-			<components>
-				<component type="EnvironmentRemote" master="true" />
-				<component type="CleanerRemote" number="2" />
-			</components>
-		</application>
-		<application name="One cleaner remote">
-			<components>
-				<component type="EnvironmentRemote" master="true" />
-				<component type="CleanerRemote" />
 			</components>
 		</application>
 	</applications>
