@@ -8,62 +8,62 @@ import jadex.bdi.runtime.Plan;
 
 import java.util.List;
 
-
 /**
- *  Walk to the least visited positions.
- *  Uses a relative measure to go to seldom seen positions.
+ * Walk to the least visited positions. Uses a relative measure to go to seldom
+ * seen positions.
  */
-public class LeastSeenWalkPlan extends Plan
-{
-	//-------- constructors --------
+public class LeastSeenWalkPlan extends Plan {
+	// -------- constructors --------
 
 	/**
-	 *  Create a new plan.
+	 * Create a new plan.
 	 */
-	public LeastSeenWalkPlan()
-	{
-//		getLogger().info("Created: "+this+" for goal "+getRootGoal());
+	public LeastSeenWalkPlan() {
+		// getLogger().info("Created: "+this+" for goal "+getRootGoal());
 	}
 
-	//-------- methods --------
+	// -------- methods --------
 
 	/**
-	 *  The plan body.
+	 * The plan body.
 	 */
-	public void body()
-	{
+	public void body() {
 		// Select randomly one of the least seen locations.
-		List	mps = (List)getExpression("query_min_seen").execute();
-		MapPoint mp = (MapPoint)mps.get(0);
-		int cnt	= 1;
-		for( ; cnt<mps.size(); cnt++)
-		{
-			MapPoint mp2 = (MapPoint)mps.get(cnt);
-			if(mp.getSeen()!=mp2.getSeen())
+		List mps = (List) getExpression("query_min_seen").execute();
+		MapPoint mp = (MapPoint) mps.get(0);
+		int cnt = 1;
+		for (; cnt < mps.size(); cnt++) {
+			MapPoint mp2 = (MapPoint) mps.get(cnt);
+			if (mp.getSeen() != mp2.getSeen())
 				break;
 		}
-		mp	= (MapPoint)mps.get((int)(Math.random()*cnt));
-//		MapPoint[]	mps = (MapPoint[])getBeliefbase().getBeliefSet("visited_positions").getFacts();
-//		MapPoint mp = mps[(int)(Math.random()*mps.length)];
-
+		mp = (MapPoint) mps.get((int) (Math.random() * cnt));
+		// MapPoint[] mps =
+		// (MapPoint[])getBeliefbase().getBeliefSet("visited_positions").getFacts();
+		// MapPoint mp = mps[(int)(Math.random()*mps.length)];
 		Location dest = mp.getLocation();
-		//LSIN*Eduardo* Inicio
-		//dest = CleanerLocationManager.rectify(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest);
-		//LSIN*Eduardo* Fin
+		if (CleanerLocationManager.isOutsideRoom(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest)){
+			dest = CleanerLocationManager.randomLocationInRoom(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue());
+		}
+		// LSIN*Eduardo* Inicio
+		// dest =
+		// CleanerLocationManager.rectify(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(),
+		// dest);
+		// LSIN*Eduardo* Fin
 		IGoal moveto = createGoal("achievemoveto");
 		moveto.getParameter("location").setValue(dest);
-//		System.out.println("Created: "+dest+" "+this);
+		// System.out.println("Created: "+dest+" "+this);
 		dispatchSubgoalAndWait(moveto);
-//		System.out.println("Reached: "+dest+" "+this);
+		// System.out.println("Reached: "+dest+" "+this);
 	}
-	
-//	public void aborted()
-//	{
-//		System.out.println("Aborted: "+this);
-//	}
-	
-//	public void failed()
-//	{
-//		System.out.println("Failed: "+this);
-//	}
+
+	// public void aborted()
+	// {
+	// System.out.println("Aborted: "+this);
+	// }
+
+	// public void failed()
+	// {
+	// System.out.println("Failed: "+this);
+	// }
 }

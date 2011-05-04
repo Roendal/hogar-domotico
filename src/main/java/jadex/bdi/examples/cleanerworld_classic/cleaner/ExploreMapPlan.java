@@ -39,11 +39,15 @@ public class ExploreMapPlan extends Plan {
 		}
 		mp = (MapPoint) mps.get((int) (Math.random() * cnt));
 		Location dest = mp.getLocation();
-		
-		//LSIN*Eduardo* Inicio
-		//dest = CleanerLocationManager.rectify(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest);
-		//LSIN*Eduardo* Fin
-		
+
+		// LSIN*Eduardo* Inicio
+		// Ignoramos el algoritmo anterior y ponemos una dirección aleatoria DENTRO de la habitación.
+
+		if (CleanerLocationManager.isOutsideRoom(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue(), dest)){
+			dest = CleanerLocationManager.randomLocationInRoom(((Number)getBeliefbase().getBelief("my_room").getFact()).intValue());
+		}
+		// LSIN*Eduardo* Fin
+
 		IGoal moveto = createGoal("achievemoveto");
 		moveto.getParameter("location").setValue(dest);
 		// System.out.println("Created: "+dest+" "+this);

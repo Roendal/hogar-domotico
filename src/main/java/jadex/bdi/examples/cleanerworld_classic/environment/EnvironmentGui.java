@@ -70,8 +70,7 @@ public class EnvironmentGui extends JFrame {
 		if (resize) {
 			setVisible(false);
 			setSize(d);
-			setLocation(SGUI
-					.calculateMiddlePosition(EnvironmentGui.this));
+			setLocation(SGUI.calculateMiddlePosition(EnvironmentGui.this));
 			setVisible(true);
 		}
 		super.paint(g);
@@ -382,7 +381,11 @@ public class EnvironmentGui extends JFrame {
 													+ "waste: "
 													+ (cleaners[i]
 															.getCarriedWaste() != null ? "yes"
-															: "no") + "</html>");
+															: "no")
+													+ "%<br>"
+													+ "room: "
+													+ (cleaners[i]
+															.getRoom()) + "</html>");
 									cleaner.setForeground(daytime ? new Color(
 											age * 2, age * 2, age * 2)
 											: new Color(255 - age * 2,

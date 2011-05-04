@@ -5,7 +5,7 @@ public class CleanerLocationManager {
 	/** The instance counter. */
 	protected static int instancecnt = 0;
 
-	private final static int TOTAL_CLEANERS = 4;
+	public final static int TOTAL_CLEANERS = 4;
 	public final static int UPPER_LEFT = 0;
 	public final static int BOTTOM_RIGHT = 1;
 	public final static int CENTER = 2;
@@ -86,12 +86,14 @@ public class CleanerLocationManager {
 	public static Location randomLocationInRoom(int room) {
 		Location upper_left = rooms[room][UPPER_LEFT];
 		Location bottom_right = rooms[room][BOTTOM_RIGHT];
-		double width = bottom_right.getX() - upper_left.getX();
-		double height = upper_left.getY() - bottom_right.getY();
+		double width = Math.abs(bottom_right.getX() - upper_left.getX());
+		double height = Math.abs(upper_left.getY() - bottom_right.getY());
 
 		double x_dest = Math.random() * width + upper_left.getX();
 		double y_dest = Math.random() * height + bottom_right.getY();
 
+		//System.out.println("Random: " + new Location(x_dest, y_dest).toString() + " between " + upper_left.toString() + " and " + bottom_right.toString());
+		
 		return new Location(x_dest, y_dest);
 	}
 }

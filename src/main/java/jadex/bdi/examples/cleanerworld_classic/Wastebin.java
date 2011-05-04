@@ -43,8 +43,7 @@ public class Wastebin extends LocationObject
 	{	
 		//LSIN*Eduardo* Inicio
 		//this("Wastebin #" + instancecnt++, location, capacity);
-		//this("#" + instancecnt++, location, capacity);
-		this("  ", location, capacity);
+		this("#" + instancecnt++, location, capacity);
 		//LSIN*Eduardo* Fin
 	}
 
