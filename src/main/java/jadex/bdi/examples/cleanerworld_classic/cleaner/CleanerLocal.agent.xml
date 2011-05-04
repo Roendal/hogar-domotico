@@ -83,7 +83,7 @@
 
 		<!-- The radius describing how far the agent can see. -->
 		<belief name="my_vision" class="double">
-			<fact>0.1</fact>
+			<fact>0.05</fact>
 		</belief>
 
 		<!-- The battery charging state (1.0 full -> 0.0 empty). -->
