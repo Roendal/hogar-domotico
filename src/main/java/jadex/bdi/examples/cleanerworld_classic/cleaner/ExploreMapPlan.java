@@ -1,5 +1,6 @@
 package jadex.bdi.examples.cleanerworld_classic.cleaner;
 
+import jadex.bdi.examples.cleanerworld_classic.CleanerLocationManager;
 import jadex.bdi.examples.cleanerworld_classic.Location;
 import jadex.bdi.examples.cleanerworld_classic.MapPoint;
 import jadex.bdi.runtime.IGoal;
@@ -28,10 +29,12 @@ public class ExploreMapPlan extends Plan
 	//-------- methods --------
 
 	/**
-	 *  The plan body.
+	 *  The plan body. 
+	 *  LSIN*Eduardo*
 	 */
 	public void body()
 	{
+		Location dest;
 		// Select randomly one of the seldom visited locations.
 		List	mps = (List)getExpression("query_min_quantity").execute();
 		MapPoint mp = (MapPoint)mps.get(0);
@@ -42,11 +45,10 @@ public class ExploreMapPlan extends Plan
 			if(mp.getSeen()!=mp2.getSeen())
 				break;
 		}
-		mp	= (MapPoint)mps.get((int)(Math.random()*cnt));
-//		MapPoint[]	mps = (MapPoint[])getBeliefbase().getBeliefSet("visited_positions").getFacts();
-//		MapPoint mp = mps[(int)(Math.random()*mps.length)];
-
-		Location dest = mp.getLocation();
+		//do{
+			mp	= (MapPoint)mps.get((int)(Math.random()*cnt));	
+			dest = mp.getLocation();
+		//}while(CleanerLocationManager.isOutsideRoom((Location)getBeliefbase().getBelief("room_upper_left_corner").getFact(), (Location)getBeliefbase().getBelief("room_bottom_right_corner").getFact(), dest));
 		IGoal moveto = createGoal("achievemoveto");
 		moveto.getParameter("location").setValue(dest);		
 //		System.out.println("Created: "+dest+" "+this);

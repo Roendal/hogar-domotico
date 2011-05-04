@@ -38,7 +38,7 @@ public class Cleaner extends LocationObject
 	/**
 	 *  Create a new Cleaner. Modified.
 	 */
-	public Cleaner(Location location, Location upper_left_corner, Location bottom_right_coner, String name, Waste carriedwaste, double vision, double chargestate)
+	public Cleaner(Location location, int room, String name, Waste carriedwaste, double vision, double chargestate)
 	{
 		setLocation(location);
 		setId(name);

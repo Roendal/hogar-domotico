@@ -69,11 +69,8 @@
 		</belief>
 		
 		<!-- The current room bounds. -->
-		<belief name="room_upper_left_corner"  class="Location">
-			<fact>CleanerLocationManager.newUpperLeftCorner()</fact>
-		</belief>
-		<belief name="room_bottom_right_corner"  class="Location">
-			<fact>CleanerLocationManager.newBottomRightCorner()</fact>
+		<belief name="my_room"  class="Location">
+			<fact>CleanerLocationManager.getInstanceId()</fact>
 		</belief>
 
 		<!-- The speed. -->
