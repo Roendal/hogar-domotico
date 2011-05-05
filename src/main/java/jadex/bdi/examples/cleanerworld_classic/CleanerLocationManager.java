@@ -6,9 +6,11 @@ public class CleanerLocationManager {
 	protected static int instancecnt = 0;
 
 	public final static int TOTAL_CLEANERS = 4;
+	public final static int TOTAL_ROOMS = 4;
 	public final static int UPPER_LEFT = 0;
 	public final static int BOTTOM_RIGHT = 1;
 	public final static int CENTER = 2;
+	public final static double MARGIN = 0.03;
 
 	public final static Location[][] rooms = {
 			// {upper_left,bottom_right,center}
@@ -93,6 +95,33 @@ public class CleanerLocationManager {
 		double y_dest = Math.random() * height + bottom_right.getY();
 
 		//System.out.println("Random: " + new Location(x_dest, y_dest).toString() + " between " + upper_left.toString() + " and " + bottom_right.toString());
+		
+		return new Location(x_dest, y_dest);
+	}
+	
+	/**
+	 * Random location in a room with margin.
+	 * 
+	 * @param room
+	 * @return A random location inside the room specified, this location
+	 * 			has a margin to won't return a location on walls
+	 */
+	
+	public static Location randomLocationInRoomWithMargin(int room) {
+		Location upper_left = rooms[room][UPPER_LEFT];
+		Location bottom_right = rooms[room][BOTTOM_RIGHT];
+		
+		double x1 = upper_left.getX() + MARGIN;
+		double y1 = upper_left.getY() - MARGIN;
+		double x2 = bottom_right.getX() - MARGIN;
+		double y2 = bottom_right.getY() + MARGIN;
+		
+		
+		double width = Math.abs(x2 - x1);
+		double height = Math.abs(y1 - y2);
+
+		double x_dest = Math.random() * width + x1;
+		double y_dest = Math.random() * height + y2;
 		
 		return new Location(x_dest, y_dest);
 	}

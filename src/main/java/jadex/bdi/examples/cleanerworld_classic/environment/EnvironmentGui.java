@@ -165,7 +165,7 @@ public class EnvironmentGui extends JFrame {
 
 						Insets insets = new Insets(2, 4, 4, 2);
 						
-						// PARÁMETROS REUTILIZADOS MÁS ADELANTE
+						// PARï¿½METROS REUTILIZADOS Mï¿½S ADELANTE
 						/*options.add(new JLabel("Toggle daytime"),
 								new GridBagConstraints(0, 0, 1, 1, 0, 0,
 										GridBagConstraints.WEST,
@@ -317,7 +317,7 @@ public class EnvironmentGui extends JFrame {
 								}
 								//LSIN *Alicia* INICIO
 								
-								//Pintar día de la semana
+								//Pintar dï¿½a de la semana
 								diaSemana.setText(env.getDia());
 								diaSemana.setForeground(daytime ? Color.black
 											: Color.white);
@@ -646,6 +646,7 @@ public class EnvironmentGui extends JFrame {
 								map.invalidate();
 								map.repaint();
 								env.addTiempo();
+								env.getDirtyRooms();
 								tiempoTranscurrido.setText(""+env.getTiempo());
 							}
 						});

@@ -42,11 +42,11 @@ public class Environment implements IEnvironment
 	/** Tiempo transcurrido (en milisegundos) */
 	private long millis=0;
 	
-	/** Determina la duración en milisegundos de medio dia (día o noche) */
+	/** Determina la duraciï¿½n en milisegundos de medio dia (dï¿½a o noche) */
 	public final long HALF_DAY= 3000;
 	
-	/** Array de días de la semana*/
-	public final String[] SEMANA= {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+	/** Array de dï¿½as de la semana*/
+	public final String[] SEMANA= {"Lunes", "Martes", "Miï¿½rcoles", "Jueves", "Viernes", "Sï¿½bado", "Domingo"};
 	
 	//LSIN *Alicia* FIN 
 	
@@ -70,10 +70,13 @@ public class Environment implements IEnvironment
 		this.pcs = new SimplePropertyChangeSupport(this);
 
 		// Add some things to our world.
-		addWaste(new Waste(new Location(0.1, 0.5)));
-		addWaste(new Waste(new Location(0.2, 0.5)));
-		addWaste(new Waste(new Location(0.3, 0.5)));
-		addWaste(new Waste(new Location(0.9, 0.9)));
+		//LSIN*Csar* Inicio
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(0)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(1)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(2)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(3)));
+		//LSIN*Csar* Fin
+		
 		//LSIN*Eduardo* Inicio
 		addWastebin(new Wastebin(new Location(0.214, 0.075), 20));
 		addWastebin(new Wastebin(new Location(0.214, 0.935), 20));
@@ -230,14 +233,14 @@ public class Environment implements IEnvironment
 	 */
 	public synchronized void addTiempo(){
 		this.millis+=50;
-		if (((this.millis%HALF_DAY) > -25) && ((this.millis%HALF_DAY) <= 25)){//cada medio día
+		if (((this.millis%HALF_DAY) > -25) && ((this.millis%HALF_DAY) <= 25)){//cada medio dï¿½a
 			controlaDiaNoche();
 		}
 	}
 	
 	/**
-	 * Devuelve el día de la semana en base al tiempo transcurrido
-	 * @return String con el nombre del día
+	 * Devuelve el dï¿½a de la semana en base al tiempo transcurrido
+	 * @return String con el nombre del dï¿½a
 	 */
 	public synchronized String getDia(){
 		int dia= (int)(this.millis/ (2*HALF_DAY))%7;
@@ -245,7 +248,7 @@ public class Environment implements IEnvironment
 	}
 	
 	/**
-	 * Cambia a día o noche según el tiempo transcurrido
+	 * Cambia a dï¿½a o noche segï¿½n el tiempo transcurrido
 	 */
 	public synchronized void controlaDiaNoche(){
 		if (this.daytime){
@@ -256,7 +259,19 @@ public class Environment implements IEnvironment
 	}
 	
 	//LSIN *Alicia* FIN
-	
+	//LSIN*Csar* INICIO
+	/**
+	 * Waste generator (better implementations are coming)
+	 */
+	public synchronized void getDirtyRooms(){
+		//generate one waste in each room, every day
+		if (((this.millis%(HALF_DAY*2)) > -25) && ((this.millis%(HALF_DAY*2)) <= 25)){
+			for (int i=0; i < CleanerLocationManager.TOTAL_ROOMS; i++){
+				addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(i)));
+			}
+		}
+	}
+	//LSIN*Csar* FIN
 	/**
 	 *  Get the complete vision.
 	 *  @return The current vision, null if failure.
