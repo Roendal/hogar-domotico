@@ -231,7 +231,6 @@ public class Environment implements IEnvironment
 	public synchronized void addTiempo(){
 		this.millis+=50;
 		if (((this.millis%HALF_DAY) > -25) && ((this.millis%HALF_DAY) <= 25)){//cada medio día
-			System.out.println(getDia());
 			controlaDiaNoche();
 		}
 	}
@@ -249,18 +248,11 @@ public class Environment implements IEnvironment
 	 * Cambia a día o noche según el tiempo transcurrido
 	 */
 	public synchronized void controlaDiaNoche(){
-		int sol= (int)((this.millis/ (2*HALF_DAY))%2);//si es par, será de día
-												//si es impar, de noche
-		switch(sol){
-			case 0:
-				setDaytime(true);
-				break;
-			case 1:
-				setDaytime(false);
-				break;
-		}
-		//System.out.println(getDaytime()+" Con sol: "+ sol);
-			
+		if (this.daytime){
+			setDaytime(false);
+		}else{
+			setDaytime(true);
+		}	
 	}
 	
 	//LSIN *Alicia* FIN

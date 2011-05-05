@@ -148,9 +148,11 @@ public class EnvironmentGui extends JFrame {
 						JPanel options = new JPanel(new GridBagLayout());
 						options.setBorder(new TitledBorder(new EtchedBorder(
 								EtchedBorder.LOWERED), "Environment Control"));
+						/*
 						final JCheckBox daytime = new JCheckBox("", env
 								.getDaytime());
 						daytime.setHorizontalTextPosition(SwingConstants.LEFT);
+						*/
 						final JLabel wastecnt = new JLabel("0");
 
 						final JComboBox wastebinchoice = new JComboBox();
@@ -162,13 +164,15 @@ public class EnvironmentGui extends JFrame {
 						JButton setfillstate = new JButton("Set fill-state");
 
 						Insets insets = new Insets(2, 4, 4, 2);
-						options.add(new JLabel("Toggle daytime"),
+						
+						// PARÁMETROS REUTILIZADOS MÁS ADELANTE
+						/*options.add(new JLabel("Toggle daytime"),
 								new GridBagConstraints(0, 0, 1, 1, 0, 0,
 										GridBagConstraints.WEST,
 										GridBagConstraints.NONE, insets, 0, 0));
 						options.add(daytime, new GridBagConstraints(1, 0, 3, 1,
 								1, 0, GridBagConstraints.WEST,
-								GridBagConstraints.NONE, insets, 0, 0));
+								GridBagConstraints.NONE, insets, 0, 0));*/
 						options.add(new JLabel("Waste count:"),
 								new GridBagConstraints(0, 1, 1, 1, 0, 0,
 										GridBagConstraints.WEST,
@@ -205,6 +209,10 @@ public class EnvironmentGui extends JFrame {
 						final Image background_night_image = ((ImageIcon) icons
 								.getIcon("background_night")).getImage();
 
+						//LSIN *Alicia* INICIO
+						final JLabel diaSemana= new JLabel("dummy",	JLabel.RIGHT);
+						//LSIN *Alicia* FIN
+						
 						final JLabel waste = new JLabel(new ImageIcon(
 								waste_image), JLabel.CENTER);
 						final JLabel wastebin = new JLabel("dummy",
@@ -233,6 +241,7 @@ public class EnvironmentGui extends JFrame {
 											PropertyChangeEvent ce) {
 										String propertyname = ce
 												.getPropertyName();
+										/*
 										if ("daytime".equals(propertyname)) {
 											if (daytime.isSelected() != ((Boolean) ce
 													.getNewValue())
@@ -241,7 +250,8 @@ public class EnvironmentGui extends JFrame {
 														.setSelected(((Boolean) ce
 																.getNewValue())
 																.booleanValue());
-										} else if ("wastebins"
+										} else*/ 
+											if ("wastebins"
 												.equals(propertyname)) {
 											if (ce.getNewValue() == null) {
 												String name = ((Wastebin) ce
@@ -305,7 +315,15 @@ public class EnvironmentGui extends JFrame {
 										}
 									}
 								}
-
+								//LSIN *Alicia* INICIO
+								
+								//Pintar día de la semana
+								diaSemana.setText(env.getDia());
+								diaSemana.setForeground(daytime ? Color.black
+											: Color.white);
+								render(g, diaSemana, onScreenLocation(new Location(0.51,0.49), bounds));
+								//LSIN *Alicia FIN
+								
 								// Paint charge Stations.
 								Chargingstation[] stations = env
 										.getChargingstations();
@@ -409,11 +427,13 @@ public class EnvironmentGui extends JFrame {
 												.getHeight()));
 
 						// Add listeners
+						/*
 						daytime.addChangeListener(new ChangeListener() {
 							public void stateChanged(ChangeEvent ce) {
 								env.setDaytime(daytime.isSelected());
 							}
 						});
+						*/
 						setfillstate.addActionListener(new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								Wastebin wb = env
@@ -612,8 +632,15 @@ public class EnvironmentGui extends JFrame {
 
 						//LSIN *Alicia* INICIO
 						final JLabel tiempoTranscurrido= new JLabel(); 
-						options.add(tiempoTranscurrido);
-						
+						options.add(new JLabel("Tiempo transcurrido(ms): "),
+						new GridBagConstraints(0, 0, 1, 1, 0, 0,
+								GridBagConstraints.WEST,
+								GridBagConstraints.NONE, insets, 0, 0));
+						options.add(tiempoTranscurrido, new GridBagConstraints(1, 0, 3, 1,
+								1, 0, GridBagConstraints.WEST,
+								GridBagConstraints.NONE, insets, 0, 0));
+						//options.add(tiempoTranscurrido);
+												
 						Timer timer = new Timer(50, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								map.invalidate();
