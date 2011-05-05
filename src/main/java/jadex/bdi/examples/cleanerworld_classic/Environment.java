@@ -41,6 +41,13 @@ public class Environment implements IEnvironment
 	//LSIN *Alicia* INICIO 
 	/** Tiempo transcurrido (en milisegundos) */
 	private long millis=0;
+	
+	/** Determina la duración en milisegundos de medio dia (día o noche) */
+	public final long HALF_DAY= 3000;
+	
+	/** Array de días de la semana*/
+	public final String[] SEMANA= {"Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"};
+	
 	//LSIN *Alicia* FIN 
 	
 	/** The helper object for bean events. */
@@ -217,11 +224,43 @@ public class Environment implements IEnvironment
 	public synchronized long getTiempo(){
 		return this.millis;
 	}
+	
 	/**
 	 * Incrementa el tiempo transcurrido en 50ms
 	 */
 	public synchronized void addTiempo(){
 		this.millis+=50;
+		if (((this.millis%HALF_DAY) > -25) && ((this.millis%HALF_DAY) <= 25)){//cada medio día
+			System.out.println(getDia());
+			controlaDiaNoche();
+		}
+	}
+	
+	/**
+	 * Devuelve el día de la semana en base al tiempo transcurrido
+	 * @return String con el nombre del día
+	 */
+	public synchronized String getDia(){
+		int dia= (int)(this.millis/ (2*HALF_DAY))%7;
+		return SEMANA[dia];
+	}
+	
+	/**
+	 * Cambia a día o noche según el tiempo transcurrido
+	 */
+	public synchronized void controlaDiaNoche(){
+		int sol= (int)((this.millis/ (2*HALF_DAY))%2);//si es par, será de día
+												//si es impar, de noche
+		switch(sol){
+			case 0:
+				setDaytime(true);
+				break;
+			case 1:
+				setDaytime(false);
+				break;
+		}
+		//System.out.println(getDaytime()+" Con sol: "+ sol);
+			
 	}
 	
 	//LSIN *Alicia* FIN
