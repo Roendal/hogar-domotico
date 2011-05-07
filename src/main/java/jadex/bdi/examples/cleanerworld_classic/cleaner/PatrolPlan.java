@@ -58,9 +58,9 @@ public class PatrolPlan extends Plan
 			//Una vez llegados a este punto nos encontramos en el caso:
 			//*Es de noche
 			//*La carga es del 100%
-			//Debemos indicarle que lo único que debe hacer es permanecer a la espera hasta que vuelva a ser de día.
+			//Debemos indicarle que lo unico que debe hacer es permanecer a la espera hasta que vuelva a ser de dia.
 			//Actualmente llegados a este punto desaparecen, pero no paran de repetir:
-			System.out.println("Me muero");
+			System.out.println("Soy un fantasma");
 		}
 		//LSIN*Eduardo* Fin
 	}
