@@ -632,7 +632,7 @@ public class EnvironmentGui extends JFrame {
 
 						//LSIN *Alicia* INICIO
 						final JLabel tiempoTranscurrido= new JLabel(); 
-						options.add(new JLabel("Tiempo transcurrido(ms): "),
+						options.add(new JLabel("Hora: "),
 						new GridBagConstraints(0, 0, 1, 1, 0, 0,
 								GridBagConstraints.WEST,
 								GridBagConstraints.NONE, insets, 0, 0));
@@ -647,7 +647,7 @@ public class EnvironmentGui extends JFrame {
 								map.repaint();
 								env.addTiempo();
 								env.getDirtyRooms();
-								tiempoTranscurrido.setText(""+env.getTiempo());
+								tiempoTranscurrido.setText(""+env.getHora());
 							}
 						});
 						//LSIN *Alicia* FIN

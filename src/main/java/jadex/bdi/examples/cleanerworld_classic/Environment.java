@@ -44,9 +44,17 @@ public class Environment implements IEnvironment
 	
 	/** Determina la duraciï¿½n en milisegundos de medio dia (dï¿½a o noche) */
 	public final long HALF_DAY= 3000;
+	public final long DAY= 2*HALF_DAY;
+	
+	/** Duración de un minuto de la simulacion en ms reales */
+	public final long MINUTE= DAY/(60*24);
+	
+	/** Duración de las etapas del dia (porcentaje) */
+	public final double MADRUGADA= 0.25; //hasta las 6 de la mañana
+	public final double DIA= 0.86; //hasta las 8 de la noche
 	
 	/** Array de dï¿½as de la semana*/
-	public final String[] SEMANA= {"Lunes", "Martes", "Miï¿½rcoles", "Jueves", "Viernes", "Sï¿½bado", "Domingo"};
+	public final String[] SEMANA= {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
 	
 	//LSIN *Alicia* FIN 
 	
@@ -61,7 +69,7 @@ public class Environment implements IEnvironment
 	public Environment()
 	{
 
-		this.daytime = true;
+		this.daytime = false;
 		this.cleaners = new ArrayList();
 		this.wastes = new ArrayList();
 		this.wastebins = new ArrayList();
@@ -229,13 +237,30 @@ public class Environment implements IEnvironment
 	}
 	
 	/**
+	 * Devuelve la hora del día
+	 * 
+	 * @return String con la hora del día
+	 */
+	public synchronized String getHora(){
+		double parteDia=  this.millis%DAY;
+		int min= (int)Math.rint(parteDia/MINUTE);
+		int hora= 0;
+
+		if(min>=60){
+			hora=min/60;
+			min=min%60;
+		}
+		hora=hora%24;
+		return hora+":"+min;
+		
+	}
+	
+	/**
 	 * Incrementa el tiempo transcurrido en 50ms
 	 */
 	public synchronized void addTiempo(){
 		this.millis+=50;
-		if (((this.millis%HALF_DAY) > -25) && ((this.millis%HALF_DAY) <= 25)){//cada medio dï¿½a
-			controlaDiaNoche();
-		}
+		controlaDiaNoche();
 	}
 	
 	/**
@@ -243,19 +268,22 @@ public class Environment implements IEnvironment
 	 * @return String con el nombre del dï¿½a
 	 */
 	public synchronized String getDia(){
-		int dia= (int)(this.millis/ (2*HALF_DAY))%7;
+		int dia= (int)(this.millis/ (DAY))%7;
 		return SEMANA[dia];
 	}
 	
 	/**
 	 * Cambia a dï¿½a o noche segï¿½n el tiempo transcurrido
 	 */
-	public synchronized void controlaDiaNoche(){
-		if (this.daytime){
+	private synchronized void controlaDiaNoche(){
+		double parteDia=this.millis%DAY;
+		if (parteDia<DAY*MADRUGADA){
 			setDaytime(false);
-		}else{
+		}else if(parteDia<DAY*DIA){
 			setDaytime(true);
-		}	
+		}else{
+			setDaytime(false);
+		}
 	}
 	
 	//LSIN *Alicia* FIN
