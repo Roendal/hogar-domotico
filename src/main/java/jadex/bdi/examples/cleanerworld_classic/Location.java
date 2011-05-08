@@ -154,4 +154,9 @@ public class Location implements Cloneable
 			throw new RuntimeException("Clone not supported");
 		}
 	}
+	
+	public Location randomRadius(double radius){
+		Location random = new Location(this.x + (2*Math.random()-1.0)*radius,this.y + (2*Math.random()-1.0)*radius);
+		return random;
+	}
 }

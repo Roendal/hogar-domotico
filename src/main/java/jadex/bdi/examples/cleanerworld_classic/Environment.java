@@ -42,18 +42,18 @@ public class Environment implements IEnvironment
 	/** Tiempo transcurrido (en milisegundos) */
 	private long millis=0;
 	
-	/** Determina la duraci�n en milisegundos de medio dia (d�a o noche) */
-	public final long HALF_DAY= 3000;
+	/** Determina la duracion en milisegundos de medio dia (dï¿½a o noche) */
+	public final long HALF_DAY= 20000;
 	public final long DAY= 2*HALF_DAY;
 	
-	/** Duraci�n de un minuto de la simulacion en ms reales */
-	public final long MINUTE= DAY/(60*24);
+	/** Duración de un minuto de la simulacion en ms reales */
+	public final long MINUTE= DAY /(60*24);
 	
-	/** Duraci�n de las etapas del dia (porcentaje) */
-	public final double MADRUGADA= 0.25; //hasta las 6 de la ma�ana
-	public final double DIA= 0.86; //hasta las 8 de la noche
+	/** Duración de las etapas del dia (porcentaje) */
+	public final double DAWN= 0.25; //hasta las 6 de la mañana
+	public final double TWILIGHT= 0.83333333333333; //hasta las 8 de la noche
 	
-	/** Array de d�as de la semana*/
+	/** Array de dï¿½as de la semana*/
 	public final String[] SEMANA= {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
 	
 	//LSIN *Alicia* FIN 
@@ -237,9 +237,9 @@ public class Environment implements IEnvironment
 	}
 	
 	/**
-	 * Devuelve la hora del d�a
+	 * Devuelve la hora del día
 	 * 
-	 * @return String con la hora del d�a
+	 * @return String con la hora del día
 	 */
 	public synchronized String getHora(){
 		double parteDia=  this.millis%DAY;
@@ -264,8 +264,8 @@ public class Environment implements IEnvironment
 	}
 	
 	/**
-	 * Devuelve el d�a de la semana en base al tiempo transcurrido
-	 * @return String con el nombre del d�a
+	 * Devuelve el dï¿½a de la semana en base al tiempo transcurrido
+	 * @return String con el nombre del dï¿½a
 	 */
 	public synchronized String getDia(){
 		int dia= (int)(this.millis/ (DAY))%7;
@@ -273,13 +273,13 @@ public class Environment implements IEnvironment
 	}
 	
 	/**
-	 * Cambia a d�a o noche seg�n el tiempo transcurrido
+	 * Cambia a dï¿½a o noche segï¿½n el tiempo transcurrido
 	 */
 	private synchronized void controlaDiaNoche(){
 		double parteDia=this.millis%DAY;
-		if (parteDia<DAY*MADRUGADA){
+		if (parteDia<DAY*DAWN){
 			setDaytime(false);
-		}else if(parteDia<DAY*DIA){
+		}else if(parteDia<DAY*TWILIGHT){
 			setDaytime(true);
 		}else{
 			setDaytime(false);

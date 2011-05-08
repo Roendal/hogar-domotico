@@ -1,6 +1,7 @@
 package jadex.bdi.examples.cleanerworld_classic.cleaner;
 
 import jadex.bdi.examples.cleanerworld_classic.Chargingstation;
+import jadex.bdi.examples.cleanerworld_classic.CleanerLocationManager;
 import jadex.bdi.examples.cleanerworld_classic.Location;
 import jadex.bdi.runtime.IGoal;
 import jadex.bdi.runtime.Plan;
@@ -38,12 +39,12 @@ public class PatrolPlan extends Plan
 		{
 			IGoal moveto = createGoal("achievemoveto");
 			Location location = station.getLocation();
+			location = location.randomRadius(0.001);			
 			moveto.getParameter("location").setValue(location);
 			dispatchSubgoalAndWait(moveto);
-
-			location = (Location)getBeliefbase().getBelief("my_location").getFact();
 			double	charge	= ((Double)getBeliefbase().getBelief("my_chargestate").getFact()).doubleValue();
 
+			location = (Location)getBeliefbase().getBelief("my_location").getFact();
 			while(location.getDistance(station.getLocation())<0.01 && charge<1.0)
 			{
 				waitFor(100);
@@ -51,17 +52,11 @@ public class PatrolPlan extends Plan
 				charge	= Math.min(charge + 0.01, 1.0);
 				getBeliefbase().getBelief("my_chargestate").setFact(new Double(charge));
 				location = (Location)getBeliefbase().getBelief("my_location").getFact();
-				//Esto estaba en LoadBatteryPlan. Mueren aunque lo descomente.
-				//IGoal dg = createGoal("get_vision_action");
-				//dispatchSubgoalAndWait(dg);
+				IGoal dg = createGoal("get_vision_action");
+				dispatchSubgoalAndWait(dg);
 			}
-			//Una vez llegados a este punto nos encontramos en el caso:
-			//*Es de noche
-			//*La carga es del 100%
-			//Debemos indicarle que lo unico que debe hacer es permanecer a la espera hasta que vuelva a ser de dia.
-			//Actualmente llegados a este punto desaparecen, pero no paran de repetir:
-			System.out.println("Soy un fantasma");
 		}
+		
 		//LSIN*Eduardo* Fin
 	}
 }
