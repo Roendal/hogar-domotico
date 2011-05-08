@@ -245,13 +245,20 @@ public class Environment implements IEnvironment
 		double parteDia=  this.millis%DAY;
 		int min= (int)Math.rint(parteDia/MINUTE);
 		int hora= 0;
+		String minutosDecenas="";
+		String horasDecenas="";
 
 		if(min>=60){
 			hora=min/60;
 			min=min%60;
 		}
 		hora=hora%24;
-		return hora+":"+min;
+		if (min<10){
+			minutosDecenas="0";
+		}if (hora<10){
+			horasDecenas=" ";
+		}
+		return horasDecenas+hora+":"+minutosDecenas+min;
 		
 	}
 	
