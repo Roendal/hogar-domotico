@@ -28,7 +28,6 @@ import javax.swing.Timer;
  */
 public class AmbrosioGui extends JFrame {
 	/** The instance counter. */
-	protected static int instancecnt = 0;
 
 	// -------- constructors --------
 
@@ -40,23 +39,9 @@ public class AmbrosioGui extends JFrame {
 		final JPanel map = new AmbrosioPanel(agent);
 
 		getContentPane().add(BorderLayout.CENTER, map);
-		setSize(300, 300);
+		setSize(1000, 120);
 		// LSIN*Eduardo* Inicio
-		switch (instancecnt) {
-		case 0:
-			setLocation(new Point(0,SGUI.calculateMiddlePosition(this).y + 160));
-			break;
-		case 1:
-			setLocation(new Point(0,SGUI.calculateMiddlePosition(this).y - 160));
-			break;
-		case 2:
-			setLocation(new Point(SGUI.calculateMiddlePosition(this).x*2,SGUI.calculateMiddlePosition(this).y - 160));
-			break;
-		case 3:
-			setLocation(new Point(SGUI.calculateMiddlePosition(this).x*2,SGUI.calculateMiddlePosition(this).y + 160));
-			break;
-		}
-		instancecnt = (++instancecnt) % CleanerLocationManager.TOTAL_CLEANERS;
+		setLocation(new Point(SGUI.calculateMiddlePosition(this).x,(int) (SGUI.calculateMiddlePosition(this).y*1.88)));
 		// LSIN*Eduardo* Fin
 		setVisible(true);
 		addWindowListener(new WindowAdapter() {

@@ -44,16 +44,16 @@ public class CleanerGui extends JFrame {
 		// LSIN*Eduardo* Inicio
 		switch (instancecnt) {
 		case 0:
-			setLocation(new Point(0,SGUI.calculateMiddlePosition(this).y + 160));
+			setLocation(new Point(0,300));
 			break;
 		case 1:
-			setLocation(new Point(0,SGUI.calculateMiddlePosition(this).y - 160));
+			setLocation(new Point(0,0));
 			break;
 		case 2:
-			setLocation(new Point(SGUI.calculateMiddlePosition(this).x*2,SGUI.calculateMiddlePosition(this).y - 160));
+			setLocation(new Point(SGUI.calculateMiddlePosition(this).x*2,0));
 			break;
 		case 3:
-			setLocation(new Point(SGUI.calculateMiddlePosition(this).x*2,SGUI.calculateMiddlePosition(this).y + 160));
+			setLocation(new Point(SGUI.calculateMiddlePosition(this).x*2,300));
 			break;
 		}
 		instancecnt = (++instancecnt) % CleanerLocationManager.TOTAL_CLEANERS;

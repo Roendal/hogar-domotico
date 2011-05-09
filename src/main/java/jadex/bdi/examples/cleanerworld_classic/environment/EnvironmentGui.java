@@ -71,7 +71,7 @@ public class EnvironmentGui extends JFrame {
 		if (resize) {
 			setVisible(false);
 			setSize(d);
-			setLocation(SGUI.calculateMiddlePosition(EnvironmentGui.this));
+			setLocation(new Point(SGUI.calculateMiddlePosition(EnvironmentGui.this).x,0));
 			setVisible(true);
 		}
 		super.paint(g);
@@ -626,8 +626,8 @@ public class EnvironmentGui extends JFrame {
 						setMaximumSize(new Dimension(600, 600));
 						setMinimumSize(new Dimension(600, 600));
 						// LSIN*Eduardo* Fin
-						setLocation(SGUI
-								.calculateMiddlePosition(EnvironmentGui.this));
+
+						setLocation(new Point(SGUI.calculateMiddlePosition(EnvironmentGui.this).x,0));
 						setVisible(true);
 
 						//LSIN *Alicia* INICIO
