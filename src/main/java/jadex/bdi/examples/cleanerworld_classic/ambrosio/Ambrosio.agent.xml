@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	<H3>Agente Ambrosio</H3>
+
+	#TODO 
+-->
+<agent xmlns="http://jadex.sourceforge.net/jadex-bdi"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jadex.sourceforge.net/jadex-bdi
+	                    http://jadex.sourceforge.net/jadex-bdi-2.0.xsd"
+	name="Ambrosio"
+	package="jadex.bdi.examples.cleanerworld_classic.ambrosio">
+
+	<imports>
+		<import>jadex.bdi.examples.cleanerworld_classic.*</import>
+		<import>java.util.*</import>
+		<import>java.util.logging.*</import>
+		<import>jadex.commons.*</import>
+		<import>jadex.rules.rulesystem.rules.functions.*</import>
+	</imports>
+
+	<capabilities>
+		<capability name="procap" file="jadex.bdi.planlib.protocols.request.Request"/>
+		<capability name="dfcap" file="jadex.bdi.planlib.df.DF"/>
+	</capabilities>
+
+	<beliefs>
+		<belief name="environment" class="IEnvironment">
+			<!-- local environment (comment out for remote) -->
+			<!--<fact>Environment.getInstance()</fact>-->
+		</belief>
+
+		<!-- The connection to the environment (agent). -->
+		<belief name="environmentagent" class="jadex.bridge.IComponentIdentifier"/>
+
+		
+		<belief name="gui" class="jadex.bdi.planlib.GuiCreator">
+			<fact>new jadex.bdi.planlib.GuiCreator(AmbrosioGui.class, new Class[]{jadex.bdi.runtime.IBDIExternalAccess.class}, 
+				new Object[]{$scope.getExternalAccess()})</fact>
+		</belief>
+	</beliefs>
+
+	<goals>
+
+ 	</goals>
+
+	<plans>
+		
+	</plans>
+
+	<expressions>
+		
+	</expressions>
+
+	<properties>
+		<!--<property name="logging.level">Level.FINE</property>-->
+<!--		<property name="debugging">true</property>-->
+		<property name="componentviewer.viewerclass">"jadex.bdi.examples.cleanerworld_classic.ambrosio.AmbrosioViewerPanel"</property>
+	</properties>
+
+	<configurations>
+		<configuration name="default">
+			<goals>
+				
+			</goals>
+		</configuration>
+	</configurations>
+</agent>
+

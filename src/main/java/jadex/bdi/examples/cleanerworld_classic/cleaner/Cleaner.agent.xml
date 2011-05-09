@@ -15,30 +15,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://jadex.sourceforge.net/jadex-bdi
 	                    http://jadex.sourceforge.net/jadex-bdi-2.0.xsd"
-	name="Cleaner"
+	name="CleanerLocal"
 	package="jadex.bdi.examples.cleanerworld_classic.cleaner">
 
 	<imports>
 		<import>jadex.bdi.examples.cleanerworld_classic.*</import>
 		<import>java.util.*</import>
 		<import>java.util.logging.*</import>
+		<import>java.awt.Rectangle</import>
 		<import>jadex.commons.*</import>
 		<import>jadex.rules.rulesystem.rules.functions.*</import>
 	</imports>
 
-	<capabilities>
-		<capability name="procap" file="jadex.bdi.planlib.protocols.request.Request"/>
-		<capability name="dfcap" file="jadex.bdi.planlib.df.DF"/>
-	</capabilities>
-
 	<beliefs>
 		<belief name="environment" class="IEnvironment">
-			<!-- local environment (comment out for remote) -->
-			<!--<fact>Environment.getInstance()</fact>-->
+			<fact>Environment.getInstance()</fact>
 		</belief>
-
-		<!-- The connection to the environment (agent). -->
-		<belief name="environmentagent" class="jadex.bridge.IComponentIdentifier"/>
 
 		<!-- The known wastes. -->
 		<beliefset name="wastes" class="Waste" />
@@ -53,7 +45,7 @@
 		<beliefset name="cleaners" class="Cleaner" />
 
 		<!-- The raster .-->
-		<beliefset name="raster" class="int">
+		<beliefset name="raster" class="Integer">
 			<fact>10</fact>
 			<fact>10</fact>
 		</beliefset>
@@ -73,22 +65,27 @@
 
 		<!-- The current cleaner location. -->
 		<belief name="my_location"  class="Location">
-			<fact>new Location(0.2, 0.2)</fact>
+			<fact>CleanerLocationManager.newInitialLocation()</fact>
+		</belief>
+		
+		<!-- The current room bounds. -->
+		<belief name="my_room"  class="Location">
+			<fact>CleanerLocationManager.getInstanceId()</fact>
 		</belief>
 
 		<!-- The speed. -->
 		<belief name="my_speed" class="double">
-			<fact>3</fact>
+			<fact>3.0</fact>
 		</belief>
 
 		<!-- The radius describing how far the agent can see. -->
 		<belief name="my_vision" class="double">
-			<fact>0.1</fact>
+			<fact>0.07</fact>
 		</belief>
 
 		<!-- The battery charging state (1.0 full -> 0.0 empty). -->
-		<belief name="my_chargestate" class="double">
-			<fact>0.85</fact>
+		<belief name="my_chargestate" class="double" exported="true">
+			<fact>0.30</fact>
 		</belief>
 
 		<!-- The actual carried waste. -->
@@ -109,6 +106,7 @@
 		</beliefset>
 		
 		<belief name="gui" class="jadex.bdi.planlib.GuiCreator">
+			<!-- <fact>new CleanerGui($scope.getExternalAccess())</fact> -->
 			<fact>new jadex.bdi.planlib.GuiCreator(CleanerGui.class, new Class[]{jadex.bdi.runtime.IBDIExternalAccess.class}, 
 				new Object[]{$scope.getExternalAccess()})</fact>
 		</belief>
@@ -127,7 +125,7 @@
 			<!-- Engage in actions when the state is below 0.2. -->
  			<maintaincondition language="jcl">
  				$beliefbase.my_chargestate > 0.2
-				
+ 				
 				// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact ?fact))
 				// ?mbelief = (mbelief (melement_has_name "my_chargestate"))
 				// (test (> ?fact 0.2))
@@ -153,10 +151,25 @@
 			<unique/>
 			<creationcondition language="jcl">
 				Waste $waste
+			
+				// ?rbeliefset = (beliefset (element_has_model ?mbeliefset) (beliefset_has_facts $?x ?waste $?y))
+				// ?mbeliefset = (mbeliefset (melement_has_name "wastes"))
+				// 
+				// // unique (?rcapa and ?mgoal are provided internally)
+				// (not (and
+				// 	?rparam = (parameter (parameter_has_name "waste") (parameter_has_value ?waste))
+				// 	?adopted = (goal (element_has_model ?mgoal) (parameterelement_has_parameters contains ?rparam))
+				// 	?rcapa = (capability (capability_has_goals contains ?adopted))
+				// 	// ?adopted = (goal (element_has_model ?mgoal) (parameterelement_has_parameters $?x ?rparam $?y))
+				// 	//?rparam = (parameter (parameter_has_name "waste") (parameter_has_value ?waste))
+				// ))
 			</creationcondition>
 			<!-- Suspend the goal when it is night. -->
 			<contextcondition language="jcl">
 				$beliefbase.daytime
+				
+				// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact true))
+				// ?mbelief = (mbelief (melement_has_name "daytime"))
  			</contextcondition>
 			<!-- The goal will be dropped when
  				the agent currently walks to the waste and the waste has vanished. -->
@@ -165,13 +178,39 @@
 				// !$beliefbase.getBeliefSet("wastes").containsFact($goal.waste)
 				$beliefbase.carriedwaste==null &amp;&amp;
 				!Arrays.asList($beliefbase.wastes).contains($goal.waste)
+				
+				// ?rgoal and ?mgoal are provided internally
+				// ?rparam = (parameter (parameter_has_name "waste") (parameter_has_value ?waste))
+				// ?rgoal = (goal (parameterelement_has_parameters contains ?rparam))
+				//
+				// ?rbeliefset = (beliefset (element_has_model ?mbeliefset) (beliefset_has_facts excludes ?waste))
+				// ?mbeliefset = (mbeliefset (melement_has_name "wastes"))
+				// 
+				// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact null))
+				// ?mbelief = (mbelief (melement_has_name "carriedwaste"))
+				
+				// todo: make sure that all elements are in same capa
  			</dropcondition>
-			<deliberation>
 			<!-- <deliberation cardinality="1"> -->
+			<deliberation>
 				<inhibits ref="performlookforwaste"/>
 				<inhibits ref="achievecleanup" language="jcl">
 					$beliefbase.my_location.getDistance($goal.waste.getLocation())
 					&lt; $beliefbase.my_location.getDistance($ref.waste.getLocation())
+					
+					// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact ?myloc))
+					// ?mbelief = (mbelief (melement_has_name "my_location"))
+					// 
+					// ?rparam = (parameter (parameter_has_name "waste") (parameter_has_value ?waste))
+					// ?rgoal = (goal (parameterelement_has_parameters contains ?rparam))
+					// ?waste = (Waste (location ?wasteloc))
+					// 
+					// ?refparam = (parameter (parameter_has_name "waste") (parameter_has_value ?refwaste))
+					// ?refgoal = (goal (parameterelement_has_parameters contains ?refparam))
+					// ?refwaste = (Waste (location ?refwasteloc &amp; 
+					// 	:(&lt; (MethodCallFunction "Location" "getDistance" ?myloc ?wasteloc)
+					// 		(MethodCallFunction "Location" "getDistance" ?myloc ?refwasteloc)  
+					// )))
 				</inhibits>
 			</deliberation>
 			<!-- The goal is achieved when the waste is in some wastebin. - ->
@@ -186,7 +225,6 @@
 		<performgoal name="performlookforwaste" retry="true" exclude="never">
 			<contextcondition language="jcl">
 				$beliefbase.daytime
-				
 				// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact true))
 				// ?mbelief = (mbelief (melement_has_name "daytime"))
  			</contextcondition>
@@ -196,6 +234,8 @@
 		<performgoal name="performpatrol" retry="true" exclude="never">
 			<contextcondition language="jcl">
 				!$beliefbase.daytime
+				// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact false))
+				// ?mbelief = (mbelief (melement_has_name "daytime"))
  			</contextcondition>
  		</performgoal>
 
@@ -209,6 +249,7 @@
 		<!-- Drop a piece of waste into a wastebin. -->
 		<achievegoal name="achievedropwaste" retry="true" exclude="never">
 			<parameter name="wastebin" class="Wastebin"/>
+			
 			<!-- The goal has failed when the aimed wastebin is full. - ->
 			<failurecondition>
 				(select one Wastebin $wastebin
@@ -281,15 +322,6 @@
 		<!-- Memorize the already visited positions in a raster. -->
 		<performgoal name="performmemorizepositions"/>
 
-		<!-- Imported DF-Goals -->
-
-		<achievegoalref name="df_search">
-			<concrete ref="dfcap.df_search"/>
-		</achievegoalref>
-
-		<achievegoalref name="rp_initiate">
-			<concrete ref="procap.rp_initiate"/>
-		</achievegoalref>
  	</goals>
 
 	<plans>
@@ -373,13 +405,7 @@
 			<trigger>
 				<goal ref="achievemoveto"/>
 			</trigger>
-			<contextcondition language="jcl">
-				$beliefbase.my_chargestate &gt; 0
-				
-				// ?rbelief = (belief (element_has_model ?mbelief) (belief_has_fact ?fact))
-				// ?mbelief = (mbelief (melement_has_name "my_chargestate"))
-				// (test (> ?fact 0))
-			</contextcondition>
+			<!-- <contextcondition>$beliefbase.my_chargestate &gt; 0</contextcondition>-->
 		</plan>
 
 		<!-- This plan memorizes the positions. -->
@@ -390,41 +416,6 @@
 			</trigger>
 		</plan>
 
-		<!-- Pickup waste action. -->
-		<plan name="remotepickupwasteaction">
-			<parameter name="waste" class="Waste">
- 				<goalmapping ref="pickup_waste_action.waste"/>
-			</parameter>
-			<body class="RemotePickUpWasteActionPlan"/>
-			<trigger>
-				<goal ref="pickup_waste_action"/>
-			</trigger>
-		</plan>
-
-		<!-- Drop waste action. -->
-		<plan name="remotedropwasteaction">
-			<parameter name="waste" class="Waste">
- 				<goalmapping ref="drop_waste_action.waste"/>
-			</parameter>
-			<parameter name="wastebin" class="Wastebin">
- 				<goalmapping ref="drop_waste_action.wastebin"/>
- 			</parameter>
- 			<body class="RemoteDropWasteActionPlan"/>
-			<trigger>
-				<goal ref="drop_waste_action"/>
-			</trigger>
-		</plan>
-
-		<!-- Drop waste action. -->
-		<plan name="remotegetvisionaction">
-			<parameter name="vision" class="Vision" direction="out">
- 				<goalmapping ref="get_vision_action.vision"/>
-			</parameter>
-			<body class="RemoteGetVisionActionPlan"/>
-			<trigger>
-				<goal ref="get_vision_action"/>
-			</trigger>
-		</plan>
 
 		<!-- Pickup waste action. -->
 		<plan name="localpickupwasteaction" priority="1">
@@ -435,7 +426,6 @@
 			<trigger>
 				<goal ref="pickup_waste_action"/>
 			</trigger>
-			<precondition>$beliefbase.environment!=null</precondition>
 		</plan>
 
 		<!-- Drop waste action. -->
@@ -450,7 +440,6 @@
 			<trigger>
 				<goal ref="drop_waste_action"/>
 			</trigger>
-			<precondition>$beliefbase.environment!=null</precondition>
 		</plan>
 
 		<!-- Drop waste action. -->
@@ -462,7 +451,6 @@
 			<trigger>
 				<goal ref="get_vision_action"/>
 			</trigger>
-			<precondition>$beliefbase.environment!=null</precondition>
 		</plan>
 	</plans>
 
@@ -472,18 +460,18 @@
 			select LocationObject $object
 			from SUtil.joinArbitraryArrays(new Object[]
  				{
- 					$beliefbase.wastes,
- 					$beliefbase.wastebins,
- 					$beliefbase.chargingstations,
- 					$beliefbase.cleaners
+ 					$beliefbase.getBeliefSet("wastes").getFacts(),
+ 					$beliefbase.getBeliefSet("wastebins").getFacts(),
+ 					$beliefbase.getBeliefSet("chargingstations").getFacts(),
+ 					$beliefbase.getBeliefSet("cleaners").getFacts()
 				})
-			where $beliefbase.my_location.isNear($object.getLocation(), $beliefbase.my_vision)
+			where $beliefbase.getBelief("my_location").getFact().isNear($object.getLocation(), $beliefbase.getBelief("my_vision").getFact())
 		</expression>
 
 		<!-- Query the max quantity map point. -->
 		<expression name="query_max_quantity">
 			select one MapPoint $mp
-			from $beliefbase.visited_positions
+			from $beliefbase.getBeliefSet("visited_positions").getFacts()
 			order by $mp.getQuantity() desc
 		</expression>
 
@@ -491,7 +479,7 @@
  			(least ones first). -->
 		<expression name="query_min_quantity">
 			select MapPoint $mp
-			from $beliefbase.visited_positions
+			from $beliefbase.getBeliefSet("visited_positions").getFacts()
 			order by $mp.getQuantity()
 		</expression>
 
@@ -499,14 +487,14 @@
  			(least ones first). -->
 		<expression name="query_min_seen">
 			select MapPoint $mp
-			from $beliefbase.visited_positions
+			from $beliefbase.getBeliefSet("visited_positions").getFacts()
 			order by $mp.getSeen()
 		</expression>
 	</expressions>
 
 	<properties>
 		<!--<property name="logging.level">Level.FINE</property>-->
-<!--		<property name="debugging">true</property>-->
+		<!-- <property name="debugging">true</property> -->
 		<property name="componentviewer.viewerclass">"jadex.bdi.examples.cleanerworld_classic.cleaner.CleanerViewerPanel"</property>
 	</properties>
 
@@ -514,8 +502,8 @@
 		<configuration name="default">
 			<goals>
 				<initialgoal ref="performlookforwaste"/>
-				<initialgoal ref="performpatrol"/>
-				<initialgoal ref="maintainbatteryloaded"/>
+  				<initialgoal ref="performpatrol"/>
+		  		<initialgoal ref="maintainbatteryloaded"/>
 				<initialgoal ref="performmemorizepositions"/>
 			</goals>
 		</configuration>

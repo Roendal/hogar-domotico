@@ -14,27 +14,27 @@
 	</imports>
 
 	<componenttypes>
-		<componenttype name="EnvironmentLocal"
-			filename="jadex/bdi/examples/cleanerworld_classic/environment/EnvironmentLocal.agent.xml" />
-		<componenttype name="CleanerLocal"
-			filename="jadex/bdi/examples/cleanerworld_classic/cleaner/CleanerLocal.agent.xml" />
-		<componenttype name="EnvironmentRemote"
+		<componenttype name="Environment"
 			filename="jadex/bdi/examples/cleanerworld_classic/environment/Environment.agent.xml" />
-		<componenttype name="CleanerRemote"
+		<componenttype name="Cleaner"
 			filename="jadex/bdi/examples/cleanerworld_classic/cleaner/Cleaner.agent.xml" />
+		<componenttype name="Ambrosio"
+			filename="jadex/bdi/examples/cleanerworld_classic/ambrosio/Ambrosio.agent.xml" />
 	</componenttypes>
 
 	<applications>
 		<application name="Hogar domótico LSIN">
 			<components>
-				<component type="EnvironmentLocal" master="true" />
-				<component type="CleanerLocal" number="4" />
+				<component type="Environment" master="true" />
+				<component type="Ambrosio" />
+				<component type="Cleaner" number="4" />
 			</components>
 		</application>
 		<application name="One cleaner test">
 			<components>
-				<component type="EnvironmentLocal" master="true" />
-				<component type="CleanerLocal" />
+				<component type="Environment" master="true" />
+				<component type="Ambrosio" />
+				<component type="Cleaner" />
 			</components>
 		</application>
 	</applications>
