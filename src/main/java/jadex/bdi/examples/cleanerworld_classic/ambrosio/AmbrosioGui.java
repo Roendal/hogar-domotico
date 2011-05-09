@@ -1,7 +1,5 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
-import jadex.bdi.examples.cleanerworld_classic.CleanerLocationManager;
-import jadex.bdi.examples.cleanerworld_classic.environment.EnvironmentGui;
 import jadex.bdi.runtime.IBDIExternalAccess;
 import jadex.bdi.runtime.IBDIInternalAccess;
 import jadex.bridge.IComponentListener;
