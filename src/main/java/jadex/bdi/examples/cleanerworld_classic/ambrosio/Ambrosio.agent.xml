@@ -38,9 +38,11 @@
 				Object[]{$scope.getExternalAccess()})</fact>
 		</belief>
 
-		<belief name="current_hour" class="int">
-			<fact>0</fact>
+		<belief name="current_date" class="Date">
+			<fact>$beliefbase.environment.getDate()</fact>
 		</belief>
+		
+		
 	</beliefs>
 
 	<goals>

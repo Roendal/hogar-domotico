@@ -1,5 +1,6 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
+import jadex.bdi.examples.cleanerworld_classic.Environment;
 import jadex.bdi.runtime.Plan;
 
 public class UpdateEnvironmentPlan extends Plan {
@@ -17,7 +18,7 @@ public class UpdateEnvironmentPlan extends Plan {
 	 * The plan body.
 	 */
 	public void body() {
-		System.out.println("Updating");
+		Date date = ((Environment)getBeliefbase().getBelief("environment").getFact()).getDate();
 	}
 
 }
