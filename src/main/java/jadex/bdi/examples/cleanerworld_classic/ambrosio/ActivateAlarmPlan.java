@@ -17,7 +17,7 @@ public class ActivateAlarmPlan extends Plan {
 	 * The plan body.
 	 */
 	public void body() {
-
+		System.out.println("RINGGGGGGGGGGGG!");
 	}
 
 }

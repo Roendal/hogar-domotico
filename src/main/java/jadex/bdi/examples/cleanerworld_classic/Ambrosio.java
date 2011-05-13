@@ -19,14 +19,13 @@ public class Ambrosio extends LocationObject {
 	}
 
 	// LSIN*Eduardo* Inicio
-	/**
-	 * Create a new Cleaner. Modified.
-	 */
-	public Ambrosio(int hour) {
-		this.hour = hour;
+	public static boolean shouldActivateAlarm(Date date){
+		boolean activate = false;
+		if (date.getHour()==7){
+			activate = true;
+		}
+		return activate;
 	}
+	// LSIN*Eduardo* Fin
 
-	public void updateHour(int hour) {
-		//?
-	}
 }

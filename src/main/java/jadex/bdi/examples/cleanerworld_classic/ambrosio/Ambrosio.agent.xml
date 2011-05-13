@@ -41,15 +41,23 @@
 		<belief name="current_date" class="Date">
 			<fact>$beliefbase.environment.getDate()</fact>
 		</belief>
+		<belief name="alarmcondition" class="boolean">
+			<fact>false</fact>
+		</belief>
 		
 		
 	</beliefs>
 
 	<goals>
-		<performgoal name="updateenvironment" retry="true" exclude="never">
-			<contextcondition language="jcl">
-				true
-			</contextcondition>
+		<performgoal name="updateenvironment" exclude="never">
+		</performgoal>
+		<performgoal name="activatealarmgoal" exclude="never">
+			<creationcondition  language="jcl">
+				$beliefbase.alarmcondition
+			</creationcondition >
+			<dropcondition language="jcl">
+				!$beliefbase.alarmcondition
+			</dropcondition>		
 		</performgoal>
 	</goals>
 
@@ -60,7 +68,15 @@
 				<goal ref="updateenvironment" />
 			</trigger>
 		</plan>
+		<plan name="activatealarm">
+			<body class="ActivateAlarmPlan" />
+			<trigger>
+				<goal ref="activatealarmgoal" />
+			</trigger>
+		</plan>
 	</plans>
+	
+	
 
 	<expressions>
 
