@@ -644,11 +644,10 @@ public class EnvironmentGui extends JFrame {
 						Timer timer = new Timer(50, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								env.updateDate(50);
+								tiempoTranscurrido.setText(""+env.getDate().getTimeWatch());
 								map.invalidate();
 								map.repaint();
-								
-								//env.getDirtyRooms();
-								tiempoTranscurrido.setText(""+env.getDate().getHour());
+								//env.getDirtyRooms();								
 							}
 						});
 						//LSIN *Alicia* FIN

@@ -6,12 +6,14 @@ public class Date {
 	/** Tiempo transcurrido (en milisegundos) */
 	private long millis;
 	
-	/** Determina la duracion en milisegundos de medio dia (dï¿½a o noche) */
-	public final long HALF_DAY= 20000;
-	public final long DAY= 2*HALF_DAY;
+	/** Duración del minuto simulado en milisegundos */
+	private int minuteDuration;
 	
-	/** Duración de un minuto de la simulacion en ms reales */
-	public final long MINUTE= DAY /(60*24);
+	/** Duración del día simulado en milisegundos */
+	private int dayDuration;
+	
+	/** Determina la duracion aproximada en milisegundos de medio dia (día o noche) */
+	private final long HALF_DAY= 20000; 
 	
 	/** Duración de las etapas del dia (porcentaje) */
 	public final double DAWN= 0.25; //hasta las 6 de la mañana
@@ -24,9 +26,10 @@ public class Date {
 	/**
 	 * Constructor
 	 */
-	public Date (){
-	
+	public Date (){	
 		this.millis=0;
+		this.minuteDuration= (int)Math.rint(2*HALF_DAY /(60*24));
+		this.dayDuration=this.minuteDuration*60*24;
 	}
 	
 	/**
@@ -39,31 +42,43 @@ public class Date {
 	}
 	
 	/**
-	 * Devuelve la hora del día
+	 * Devuelve la hora del día y sus minutos
 	 * 
-	 * @return String con la hora del día
+	 * @return String con la hora del día hh:mm	
 	 */
-	public synchronized String getHour(){
-		double parteDia=  this.millis%DAY;
-		int min= (int)Math.rint(parteDia/MINUTE);
-		int hora= 0;
-		String minutosDecenas="";
-		String horasDecenas="";
+	public synchronized String getTimeWatch(){
+		int [] watch=hourAndMinutes(); 
+		String decMin="";
+		String decHour="";
 
-		if(min>=60){
-			hora=min/60;
-			min=min%60;
+		if (watch[0]<10){
+			decMin="0";
+		}if (watch[1]<10){
+			decHour=" ";
 		}
-		hora=hora%24;
-		if (min<10){
-			minutosDecenas="0";
-		}if (hora<10){
-			horasDecenas=" ";
-		}
-		return horasDecenas+hora+":"+minutosDecenas+min;
+		return decHour+watch[1]+":"+decMin+watch[0];
 		
 	}
+	/**
+	 * Devuelve únicamente la hora 
+	 * 
+	 * @return int hora (formato de 24h)
+	 */
+	public synchronized int getHour(){
+		int [] watch=hourAndMinutes(); 
+		return watch[1];
+	}
 	
+	/**
+	 * Todos los resultados relevantes en un String
+	 * 
+	 * @return String con la información
+	 */
+	public synchronized String toString(){
+		return "Son las "+getTimeWatch()+" del "+getDay()+" (han pasado "
+				+this.millis+" milisegundos desde el inicio). ¿Es de dia? "+isDay();
+	}
+
 	/**
 	 * Incrementa el tiempo transcurrido
 	 * 
@@ -71,7 +86,6 @@ public class Date {
 	 */
 	public synchronized void addTime(double time){
 		this.millis+=time;
-		//controlaDiaNoche();
 	}
 	
 	/**
@@ -80,8 +94,8 @@ public class Date {
 	 * @return String con el nombre del dï¿½a
 	 */
 	public synchronized String getDay(){
-		int dia= (int)(this.millis/ (DAY))%7;
-		return WEEK[dia];
+		int day= (int)(this.millis/(this.dayDuration))%7;
+		return WEEK[day];
 	}
 	
 	/**
@@ -91,17 +105,33 @@ public class Date {
 	 * 			false si es de noche
 	 */
 	public synchronized boolean isDay(){
-		double parteDia=this.millis%DAY;
-		boolean day; 
-		if (parteDia<DAY*DAWN){
-			day = false;
-		}else if(parteDia<DAY*TWILIGHT){
+		double dayPortion=this.millis%(this.dayDuration);
+		boolean day=false; 
+		if((dayPortion>this.dayDuration*DAWN)&&
+				(dayPortion<this.dayDuration*TWILIGHT)){
 			day = true;
-		}else{
-			day =false;
 		}
 		return day;
 	}
-	
-	
+	/**
+	 * Devuelve un array con el número de horas y minutos
+	 * en formato de 24 horas.
+	 * 
+	 * @return int[] con [0]=> número de minutos
+	 * 					 [1]=> número de horas
+	 */
+	private synchronized int[] hourAndMinutes(){
+		double dayPortion=  this.millis%(this.dayDuration);
+		int []result= new int[2];
+		result[0]= (int)Math.rint(dayPortion/this.minuteDuration);
+		result[1]= 0;
+		
+		if(result[0]>=60){
+			result[1]=result[0]/60;
+			result[0]=result[0]%60;
+		}
+		result[1]=result[1]%24;
+
+		return result;
+	}
 }
