@@ -1,8 +1,5 @@
 package jadex.bdi.examples.cleanerworld_classic;
 
-import java.awt.Rectangle;
-
-import jadex.commons.SUtil;
 
 /**
  * Editable Java class for concept Cleaner of cleaner-generated ontology.

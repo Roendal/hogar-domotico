@@ -44,16 +44,18 @@
 	</beliefs>
 
 	<goals>
-		<performgoal name="performpatrol">
-
+		<performgoal name="updateenvironment" retry="true" exclude="never">
+			<contextcondition language="jcl">
+				true
+			</contextcondition>
 		</performgoal>
 	</goals>
 
 	<plans>
-		<plan name="activatealarm">
-			<body class="ActivateAlarmPlan" />
+		<plan name="update">
+			<body class="UpdateEnvironmentPlan" />
 			<trigger>
-				<goal ref="performpatrol" />
+				<goal ref="updateenvironment" />
 			</trigger>
 		</plan>
 	</plans>
@@ -72,7 +74,7 @@
 	<configurations>
 		<configuration name="default">
 			<goals>
-
+				<initialgoal ref="updateenvironment" />
 			</goals>
 		</configuration>
 	</configurations>

@@ -80,8 +80,12 @@ public class Environment implements IEnvironment
 		// Add some things to our world.
 		//LSIN*Csar* Inicio
 		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(0)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(0)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(1)));
 		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(1)));
 		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(2)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(2)));
+		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(3)));
 		addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(3)));
 		//LSIN*Csar* Fin
 		
