@@ -37,26 +37,12 @@ public class Environment implements IEnvironment
 
 	/** The cleaner ages. */
 	protected Map ages;
+
+	//LSIN *Alicia* Inicio
+	protected Date date;
 	
-	//LSIN *Alicia* INICIO 
-	/** Tiempo transcurrido (en milisegundos) */
-	private long millis=0;
-	
-	/** Determina la duracion en milisegundos de medio dia (dï¿½a o noche) */
-	public final long HALF_DAY= 20000;
-	public final long DAY= 2*HALF_DAY;
-	
-	/** Duración de un minuto de la simulacion en ms reales */
-	public final long MINUTE= DAY /(60*24);
-	
-	/** Duración de las etapas del dia (porcentaje) */
-	public final double DAWN= 0.25; //hasta las 6 de la mañana
-	public final double TWILIGHT= 0.83333333333333; //hasta las 8 de la noche
-	
-	/** Array de dï¿½as de la semana*/
-	public final String[] SEMANA= {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
-	
-	//LSIN *Alicia* FIN 
+	//LSIN *Alicia* Fin
+
 	
 	/** The helper object for bean events. */
 	public SimplePropertyChangeSupport pcs;
@@ -68,8 +54,11 @@ public class Environment implements IEnvironment
 	 */
 	public Environment()
 	{
-
-		this.daytime = false;
+		//LSIN *Alicia* Inicio
+		this.daytime = false; //begins with date time 0
+		this.date= new Date();
+		//LSIN *Alicia* Fin
+		
 		this.cleaners = new ArrayList();
 		this.wastes = new ArrayList();
 		this.wastebins = new ArrayList();
@@ -230,78 +219,12 @@ public class Environment implements IEnvironment
 
 	//-------- methods --------
 
-	//LSIN *Alicia* INICIO
-	/**
-	 * Devuelve el tiempo transcurrido en milisegundos
-	 * 
-	 * @return los milisegundos transcurridos hasta ese momento
-	 */
-	public synchronized long getTiempo(){
-		return this.millis;
-	}
-	
-	/**
-	 * Devuelve la hora del día
-	 * 
-	 * @return String con la hora del día
-	 */
-	public synchronized String getHora(){
-		double parteDia=  this.millis%DAY;
-		int min= (int)Math.rint(parteDia/MINUTE);
-		int hora= 0;
-		String minutosDecenas="";
-		String horasDecenas="";
 
-		if(min>=60){
-			hora=min/60;
-			min=min%60;
-		}
-		hora=hora%24;
-		if (min<10){
-			minutosDecenas="0";
-		}if (hora<10){
-			horasDecenas=" ";
-		}
-		return horasDecenas+hora+":"+minutosDecenas+min;
-		
-	}
-	
-	/**
-	 * Incrementa el tiempo transcurrido en 50ms
-	 */
-	public synchronized void addTiempo(){
-		this.millis+=50;
-		controlaDiaNoche();
-	}
-	
-	/**
-	 * Devuelve el dï¿½a de la semana en base al tiempo transcurrido
-	 * @return String con el nombre del dï¿½a
-	 */
-	public synchronized String getDia(){
-		int dia= (int)(this.millis/ (DAY))%7;
-		return SEMANA[dia];
-	}
-	
-	/**
-	 * Cambia a dï¿½a o noche segï¿½n el tiempo transcurrido
-	 */
-	private synchronized void controlaDiaNoche(){
-		double parteDia=this.millis%DAY;
-		if (parteDia<DAY*DAWN){
-			setDaytime(false);
-		}else if(parteDia<DAY*TWILIGHT){
-			setDaytime(true);
-		}else{
-			setDaytime(false);
-		}
-	}
-	
-	//LSIN *Alicia* FIN
 	//LSIN*Csar* INICIO
 	/**
 	 * Waste generator (better implementations are coming)
 	 */
+	/*
 	public synchronized void getDirtyRooms(){
 		//generate one waste in each room, every day
 		if (((this.millis%(HALF_DAY*2)) > -25) && ((this.millis%(HALF_DAY*2)) <= 25)){
@@ -310,6 +233,7 @@ public class Environment implements IEnvironment
 			}
 		}
 	}
+	*/
 	//LSIN*Csar* FIN
 	/**
 	 *  Get the complete vision.
@@ -339,7 +263,28 @@ public class Environment implements IEnvironment
 		this.daytime = daytime;
 		this.pcs.firePropertyChange("daytime", null, new Boolean(daytime));
 	}
-
+	
+	// LSIN *Alicia* Inicio
+	/**
+	 * Devolver la fecha
+	 * 
+	 * @return date
+	 */
+	public synchronized Date getDate(){
+		return this.date;
+	}
+	
+	/**
+	 * Actualizar la fecha
+	 * 
+	 * @param time tiempo que se ha avanzado
+	 */
+	public synchronized void updateDate(double time){
+		this.date.addTime(time);
+		setDaytime(this.date.isDay());
+	}
+	
+	// LSIN *Alicia* Fin
 	/**
 	 *  Add a cleaner.
 	 *  @param cleaner The cleaner.

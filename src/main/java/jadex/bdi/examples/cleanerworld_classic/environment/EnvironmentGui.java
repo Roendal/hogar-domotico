@@ -317,8 +317,8 @@ public class EnvironmentGui extends JFrame {
 								}
 								//LSIN *Alicia* INICIO
 								
-								//Pintar d�a de la semana
-								diaSemana.setText(env.getDia());
+								//Pintar día de la semana
+								diaSemana.setText(env.getDate().getDay());
 								diaSemana.setForeground(daytime ? Color.black
 											: Color.white);
 								render(g, diaSemana, onScreenLocation(new Location(0.51,0.49), bounds));
@@ -643,11 +643,12 @@ public class EnvironmentGui extends JFrame {
 												
 						Timer timer = new Timer(50, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
+								env.updateDate(50);
 								map.invalidate();
 								map.repaint();
-								env.addTiempo();
-								env.getDirtyRooms();
-								tiempoTranscurrido.setText(""+env.getHora());
+								
+								//env.getDirtyRooms();
+								tiempoTranscurrido.setText(""+env.getDate().getHour());
 							}
 						});
 						//LSIN *Alicia* FIN
