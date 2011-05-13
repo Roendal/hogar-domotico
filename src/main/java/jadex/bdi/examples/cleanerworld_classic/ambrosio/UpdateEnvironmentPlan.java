@@ -9,7 +9,9 @@ public class UpdateEnvironmentPlan extends Plan {
 	// -------- constructors --------
 
 	private static int hour = -1;
-	
+	private static int day = -1;
+	private static boolean ringedToday = false;
+
 	/**
 	 * Create a new plan.
 	 */
@@ -22,12 +24,25 @@ public class UpdateEnvironmentPlan extends Plan {
 	 * The plan body.
 	 */
 	public void body() {
-		Date date = ((Environment)getBeliefbase().getBelief("environment").getFact()).getDate();
+		Date date = ((Environment) getBeliefbase().getBelief("environment")
+				.getFact()).getDate();
 		getBeliefbase().getBelief("current_date").setFact(date);
-		getBeliefbase().getBelief("alarmcondition").setFact(Ambrosio.shouldActivateAlarm(date));
-		if (hour!=date.getHour()){
+		if (ringedToday) {
+			getBeliefbase().getBelief("alarmcondition").setFact(false);
+		} else {
+			if (Ambrosio.shouldActivateAlarm(date)) {
+				getBeliefbase().getBelief("alarmcondition").setFact(true);
+				ringedToday = true;
+			}
+		}
+		if (hour != date.getHour()) {
 			hour = date.getHour();
-			System.out.println("Nueva hora: " + hour + ":00");			
+			if (day != date.getDayNumber()) {
+				day = date.getDayNumber();
+				ringedToday = false;
+			}
+			// Trazas
+			System.out.println("Día: " + day + " hora: " + hour + ":00");
 		}
 	}
 

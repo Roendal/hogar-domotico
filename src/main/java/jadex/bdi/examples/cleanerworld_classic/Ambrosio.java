@@ -7,8 +7,6 @@ package jadex.bdi.examples.cleanerworld_classic;
 public class Ambrosio extends LocationObject {
 	// -------- attributes ----------
 
-	protected int hour;
-
 	// -------- constructors --------
 
 	/**

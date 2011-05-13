@@ -93,6 +93,11 @@ public class Date {
 	 * 
 	 * @return String con el nombre del dï¿½a
 	 */
+	public synchronized int getDayNumber(){
+		int day= (int)(this.millis/(this.dayDuration))%7;
+		return day;
+	}
+	
 	public synchronized String getDay(){
 		int day= (int)(this.millis/(this.dayDuration))%7;
 		return WEEK[day];
