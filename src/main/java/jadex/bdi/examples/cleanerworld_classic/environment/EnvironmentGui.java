@@ -631,12 +631,12 @@ public class EnvironmentGui extends JFrame {
 						setVisible(true);
 
 						//LSIN *Alicia* INICIO
-						final JLabel tiempoTranscurrido= new JLabel(); 
-						options.add(new JLabel("Hora: "),
+						final JLabel timePast= new JLabel(); 
+						options.add(new JLabel("Time: "),
 						new GridBagConstraints(0, 0, 1, 1, 0, 0,
 								GridBagConstraints.WEST,
 								GridBagConstraints.NONE, insets, 0, 0));
-						options.add(tiempoTranscurrido, new GridBagConstraints(1, 0, 3, 1,
+						options.add(timePast, new GridBagConstraints(1, 0, 3, 1,
 								1, 0, GridBagConstraints.WEST,
 								GridBagConstraints.NONE, insets, 0, 0));
 						//options.add(tiempoTranscurrido);
@@ -644,7 +644,7 @@ public class EnvironmentGui extends JFrame {
 						Timer timer = new Timer(50, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								env.updateDate(50);
-								tiempoTranscurrido.setText(""+env.getDate().getTimeWatch());
+								timePast.setText(""+env.getDate().getTimeWatch());
 								map.invalidate();
 								map.repaint();
 								//env.getDirtyRooms();								

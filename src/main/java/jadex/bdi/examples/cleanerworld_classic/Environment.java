@@ -39,6 +39,7 @@ public class Environment implements IEnvironment
 	protected Map ages;
 
 	//LSIN *Alicia* Inicio
+	/** El objeto Date asociado a la evolución del tiempo del sistema*/
 	protected Date date;
 	
 	//LSIN *Alicia* Fin
@@ -220,9 +221,10 @@ public class Environment implements IEnvironment
 	//-------- methods --------
 
 
-	//LSIN*Csar* INICIO
+	//LSIN *Csar* INICIO
 	/**
-	 * Waste generator (better implementations are coming)
+	 * Waste generator 
+	 * 
 	 */
 	/*
 	public synchronized void getDirtyRooms(){
@@ -234,7 +236,8 @@ public class Environment implements IEnvironment
 		}
 	}
 	*/
-	//LSIN*Csar* FIN
+	//LSIN *Csar* FIN
+	
 	/**
 	 *  Get the complete vision.
 	 *  @return The current vision, null if failure.
