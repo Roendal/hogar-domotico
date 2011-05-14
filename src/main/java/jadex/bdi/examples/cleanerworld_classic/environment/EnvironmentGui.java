@@ -59,7 +59,12 @@ import javax.swing.event.ChangeListener;
 public class EnvironmentGui extends JFrame {
 
 	
+	
 	// LSIN*Eduardo* Inicio
+
+	private int width = 585;
+	private int height = 557;
+	
 
 	@Override
 	public void paint(Graphics g) {
@@ -621,13 +626,16 @@ public class EnvironmentGui extends JFrame {
 						// Show the gui.
 						getContentPane().add(BorderLayout.SOUTH, options);
 						getContentPane().add(BorderLayout.CENTER, map);
-						setSize(600, 600);
+						setSize(width,height);
+						// LSIN *Alicia* Inicio
+						setUndecorated(true);
+						// LSIN *Alicia* Fin
 						// LSIN*Eduardo* Inicio
-						setMaximumSize(new Dimension(600, 600));
-						setMinimumSize(new Dimension(600, 600));
+						setMaximumSize(new Dimension(width,height));				
+						setMinimumSize(new Dimension(width,height));
 						// LSIN*Eduardo* Fin
 
-						setLocation(new Point(SGUI.calculateMiddlePosition(EnvironmentGui.this).x,0));
+						setLocation(new Point(SGUI.calculateMiddlePosition(EnvironmentGui.this).x,30));
 						setVisible(true);
 
 						//LSIN *Alicia* INICIO

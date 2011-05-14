@@ -99,7 +99,6 @@ class AmbrosioPanel extends JPanel {
 		if (drawdata != null) {
 			// Paint background (dependent on daytime).
 			Rectangle bounds = getBounds();
-			System.out.println(bounds);
 			//g.setColor(Color.lightGray);
 			//g.fillRect(0, 0, bounds.width, bounds.height);
 			// PINTAR
