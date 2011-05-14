@@ -57,7 +57,10 @@
 			</creationcondition >
 			<dropcondition language="jcl">
 				!$beliefbase.alarmcondition
-			</dropcondition>		
+			</dropcondition>	
+			<deliberation>
+				<inhibits ref="updateenvironment" inhibit="when_in_process"/>
+			</deliberation>	
 		</performgoal>
 	</goals>
 
