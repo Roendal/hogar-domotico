@@ -63,7 +63,7 @@ public class EnvironmentGui extends JFrame {
 	// LSIN*Eduardo* Inicio
 
 	private int width = 585;
-	private int height = 557;
+	private int height = 575;
 	
 
 	@Override

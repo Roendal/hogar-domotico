@@ -43,13 +43,13 @@ class AmbrosioPanel extends JPanel {
 
 	/** The latest world view information. */
 	protected DrawData drawdata;
-	
+
 	/** Para lograr que el despertador parpadee */
 	protected int blink;
 
 	/** Periodo del parpadeo del despertador */
-	protected final int BLINK_PERIOD=6;
-	
+	protected final int BLINK_PERIOD = 6;
+
 	/**
 	 * Flag to indicate that the draw data is currently updated to avoid
 	 * multiple updates in parallel.
@@ -61,13 +61,21 @@ class AmbrosioPanel extends JPanel {
 	/** The image icons. */
 	private static UIDefaults icons = new UIDefaults(
 			new Object[] {
-					"background", SGUI.makeIcon(EnvironmentGui.class,
-					"/jadex/bdi/examples/cleanerworld_classic/images/interfaz-HAL.png"),
-					"clock", SGUI.makeIcon(EnvironmentGui.class,
-					"/jadex/bdi/examples/cleanerworld_classic/images/alarm.png")});
-	
+					"background",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/interfaz-HAL.png"),
+					"alarm-on",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/alarm-on.png"),
+					"alarm-off",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/alarm-off.png") });
+
 	// LSIN *Alicia* Fin
-									
+
 	// -------- constructors --------
 
 	/**
@@ -76,7 +84,7 @@ class AmbrosioPanel extends JPanel {
 	public AmbrosioPanel(IExternalAccess agent) {
 		this.agent = agent;
 		// LSIN *Alicia* Inicio
-		this.blink= 0;
+		this.blink = 0;
 		// LSIN *Alicia* Fin
 	}
 
@@ -86,7 +94,7 @@ class AmbrosioPanel extends JPanel {
 	 * Paint the world view.
 	 */
 	protected void paintComponent(Graphics g) {
-		
+
 		if (!updating) {
 			updating = true;
 			try {
@@ -111,9 +119,9 @@ class AmbrosioPanel extends JPanel {
 		}
 
 		if (drawdata != null) {
-			// Paint background 
+			// Paint background
 			Rectangle bounds = getBounds();
-			
+
 			// LSIN *Alicia* Inicio
 			Image image = ((ImageIcon) icons.getIcon("background")).getImage();
 			int w = image.getWidth(this);
@@ -121,21 +129,20 @@ class AmbrosioPanel extends JPanel {
 			if (w > 0 && h > 0) {
 				g.drawImage(image, 0, 0, this);
 			}
-			
-			//Paint the alarm clock when the alarm sounds
-			Image alarm=((ImageIcon) icons.getIcon("clock")).getImage();
-			w = alarm.getWidth(this);
-			h = alarm.getHeight(this);
-			if (Ambrosio.isAlarmOn() && w > 0 && h > 0) {
-				if(this.blink<(BLINK_PERIOD/2)){
-					g.drawImage(alarm, 30, 30, this);					
-				}else if(this.blink==BLINK_PERIOD){
-					this.blink=-1;
+
+			// Paint the alarm clock when the alarm sounds
+			Image alarmOn = ((ImageIcon) icons.getIcon("alarm-on")).getImage();
+			Image alarmOff = ((ImageIcon) icons.getIcon("alarm-off")).getImage();
+			g.drawImage(alarmOff, 30, 30, this);
+			if (Ambrosio.isAlarmOn()) {
+				if (this.blink < (BLINK_PERIOD / 2)) {
+					g.drawImage(alarmOn, 30, 30, this);
+				} else if (this.blink == BLINK_PERIOD) {
+					this.blink = -1;
 				}
 				this.blink++;
 			}
-			
-			//LSIN *Alicia* Fin
+			// LSIN *Alicia* Fin
 		}
 	}
 
