@@ -1,5 +1,6 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
+import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.environment.EnvironmentGui;
 import jadex.bdi.runtime.IBDIExternalAccess;
 import jadex.bdi.runtime.IBDIInternalAccess;
@@ -12,13 +13,16 @@ import jadex.commons.SGUI;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
@@ -28,6 +32,7 @@ import javax.swing.Timer;
  * a single agent.
  */
 public class AmbrosioGui extends JFrame {
+	
 	
 	// LSIN*Eduardo* Inicio
 
@@ -44,6 +49,9 @@ public class AmbrosioGui extends JFrame {
 			setLocation(new Point(SGUI.calculateMiddlePosition(AmbrosioGui.this).x,(int) (SGUI.calculateMiddlePosition(this).y*1.88)));
 			setVisible(true);
 		}
+		if (Ambrosio.alarm){
+			
+		}
 		super.paint(g);
 	}
 	// LSIN*Eduardo* Fin
@@ -59,11 +67,13 @@ public class AmbrosioGui extends JFrame {
 
 		getContentPane().add(BorderLayout.CENTER, map);
 		setSize(1000, 120);
+		
 		// LSIN *Alicia* Inicio
 		setMaximumSize(new Dimension(1000, 120));
 		setMinimumSize(new Dimension(1000, 120));
 		setUndecorated(true);
 		// LSIN *Alicia* Fin
+		
 		// LSIN*Eduardo* Inicio
 		setLocation(new Point(SGUI.calculateMiddlePosition(this).x,(int) (SGUI.calculateMiddlePosition(this).y*1.88)));
 		// LSIN*Eduardo* Fin
@@ -95,6 +105,7 @@ public class AmbrosioGui extends JFrame {
 
 		Timer timer = new Timer(50, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				map.invalidate();
 				map.repaint();
 			}

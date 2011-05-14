@@ -6,7 +6,9 @@ package jadex.bdi.examples.cleanerworld_classic;
  */
 public class Ambrosio extends LocationObject {
 	// -------- attributes ----------
-
+	
+	public static boolean alarm = false;
+	
 	// -------- constructors --------
 
 	/**
@@ -15,7 +17,15 @@ public class Ambrosio extends LocationObject {
 	public Ambrosio() {
 		// Empty constructor required for JavaBeans (do not remove).
 	}
-
+	
+	public static void activateAlarm(){
+		alarm =true;
+	}
+	
+	public static void deactivateAlarm(){
+		alarm=false;
+	}
+	
 	// LSIN*Eduardo* Inicio
 	public static boolean shouldActivateAlarm(Date date){
 		boolean activate = false;

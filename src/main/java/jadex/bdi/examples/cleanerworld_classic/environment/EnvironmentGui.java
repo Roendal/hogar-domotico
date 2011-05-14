@@ -326,7 +326,7 @@ public class EnvironmentGui extends JFrame {
 								diaSemana.setText(env.getDate().getDay());
 								diaSemana.setForeground(daytime ? Color.black
 											: Color.white);
-								render(g, diaSemana, onScreenLocation(new Location(0.51,0.49), bounds));
+								render(g, diaSemana, onScreenLocation(new Location(0.51,0.475), bounds));
 								//LSIN *Alicia FIN
 								
 								// Paint charge Stations.

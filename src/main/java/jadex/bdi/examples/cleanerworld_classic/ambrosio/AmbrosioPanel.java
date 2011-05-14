@@ -1,5 +1,6 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
+import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.Chargingstation;
 import jadex.bdi.examples.cleanerworld_classic.Cleaner;
 import jadex.bdi.examples.cleanerworld_classic.Location;
@@ -18,6 +19,7 @@ import jadex.commons.IFuture;
 import jadex.commons.SGUI;
 import jadex.commons.concurrent.SwingDefaultResultListener;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -26,6 +28,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIDefaults;
 
@@ -35,7 +38,7 @@ import javax.swing.UIDefaults;
 class AmbrosioPanel extends JPanel {
 	// -------- attributes --------
 
-	/** The cleaner agent. */
+	/** The Ambrosio agent. */
 	protected IExternalAccess agent;
 
 	/** The latest world view information. */
@@ -53,7 +56,9 @@ class AmbrosioPanel extends JPanel {
 	private static UIDefaults icons = new UIDefaults(
 			new Object[] {
 					"background", SGUI.makeIcon(EnvironmentGui.class,
-					"/jadex/bdi/examples/cleanerworld_classic/images/interfaz-HAL.png")});
+					"/jadex/bdi/examples/cleanerworld_classic/images/interfaz-HAL.png"),
+					"clock", SGUI.makeIcon(EnvironmentGui.class,
+					"/jadex/bdi/examples/cleanerworld_classic/images/alarm.png")});
 	
 	// LSIN *Alicia* Fin
 									
@@ -97,22 +102,25 @@ class AmbrosioPanel extends JPanel {
 		}
 
 		if (drawdata != null) {
-			// Paint background (dependent on daytime).
+			// Paint background 
 			Rectangle bounds = getBounds();
-			//g.setColor(Color.lightGray);
-			//g.fillRect(0, 0, bounds.width, bounds.height);
-			// PINTAR
+			
 			// LSIN *Alicia* Inicio
 			Image image = ((ImageIcon) icons.getIcon("background")).getImage();
 			int w = image.getWidth(this);
 			int h = image.getHeight(this);
 			if (w > 0 && h > 0) {
-				for (int y = 0; y < bounds.height; y += h) {
-					for (int x = 0; x < bounds.width; x += w) {
-						g.drawImage(image, x, y, this);
-					}
-				}
+				g.drawImage(image, 0, 0, this);
 			}
+			
+			//Paint the alarm clock when the alarm sounds
+			Image alarm=((ImageIcon) icons.getIcon("clock")).getImage();
+			w = alarm.getWidth(this);
+			h = alarm.getHeight(this);
+			if (Ambrosio.alarm && w > 0 && h > 0) {
+				g.drawImage(alarm, 30, 30, this);
+			}
+			
 			//LSIN *Alicia* Fin
 		}
 	}

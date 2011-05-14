@@ -1,5 +1,6 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
+import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
 import jadex.bdi.runtime.Plan;
 
 import java.awt.Toolkit;
@@ -24,6 +25,8 @@ public class ActivateAlarmPlan extends Plan {
 	 * The plan body.
 	 */
 	public void body() {
+		
+		Ambrosio.activateAlarm();
 		System.out.println("RINGGGGGGGGGGGG!");
 		for (int j = 0; j < alarm_waves; j++) {
 			for (int i = 0; i < alarm_times; i++) {
@@ -32,7 +35,7 @@ public class ActivateAlarmPlan extends Plan {
 			}
 			waitFor(alarm_wave_wait);
 		}
-
+		Ambrosio.deactivateAlarm();
 		getBeliefbase().getBelief("alarmcondition").setFact(false);
 	}
 
