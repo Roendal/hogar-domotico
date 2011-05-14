@@ -41,6 +41,9 @@ public class CleanerGui extends JFrame {
 
 		getContentPane().add(BorderLayout.CENTER, map);
 		setSize(300, 300);
+		// LSIN *Alicia* Inicio
+		setUndecorated(true);
+		// LSIN *Alicia* Fin
 		// LSIN*Eduardo* Inicio
 		switch (instancecnt) {
 		case 0:

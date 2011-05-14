@@ -53,7 +53,7 @@ class AmbrosioPanel extends JPanel {
 	private static UIDefaults icons = new UIDefaults(
 			new Object[] {
 					"background", SGUI.makeIcon(EnvironmentGui.class,
-					"/jadex/bdi/examples/cleanerworld_classic/images/background.png")});
+					"/jadex/bdi/examples/cleanerworld_classic/images/interfaz-HAL.png")});
 	
 	// LSIN *Alicia* Fin
 									
@@ -72,10 +72,7 @@ class AmbrosioPanel extends JPanel {
 	 * Paint the world view.
 	 */
 	protected void paintComponent(Graphics g) {
-		// LSIN *Alicia* Inicio
-		setMaximumSize(new Dimension(1000, 120));
-		setMinimumSize(new Dimension(1000, 120));
-		// LSIN *Alicia* Fin
+		
 		if (!updating) {
 			updating = true;
 			try {
@@ -102,8 +99,9 @@ class AmbrosioPanel extends JPanel {
 		if (drawdata != null) {
 			// Paint background (dependent on daytime).
 			Rectangle bounds = getBounds();
-			g.setColor(Color.lightGray);
-			g.fillRect(0, 0, bounds.width, bounds.height);
+			System.out.println(bounds);
+			//g.setColor(Color.lightGray);
+			//g.fillRect(0, 0, bounds.width, bounds.height);
 			// PINTAR
 			// LSIN *Alicia* Inicio
 			Image image = ((ImageIcon) icons.getIcon("background")).getImage();
