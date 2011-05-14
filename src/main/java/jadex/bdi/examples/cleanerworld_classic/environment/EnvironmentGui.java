@@ -648,7 +648,70 @@ public class EnvironmentGui extends JFrame {
 								1, 0, GridBagConstraints.WEST,
 								GridBagConstraints.NONE, insets, 0, 0));
 						//options.add(tiempoTranscurrido);
-												
+						
+						//LSIN*Ces* INICIO
+						JCheckBox room0Presence = new JCheckBox("Presencia en la cocina");
+						room0Presence.setName("0");
+						options.add(room0Presence,
+								new GridBagConstraints(2, 1, 1, 1, 0, 0,
+										GridBagConstraints.WEST,
+										GridBagConstraints.NONE, insets, 0, 0));
+						
+						
+						JCheckBox room1Presence = new JCheckBox("Presencia en el salon");
+						room1Presence.setName("1");
+						options.add(room1Presence,
+								new GridBagConstraints(2, 0, 1, 1, 0, 0,
+										GridBagConstraints.WEST,
+										GridBagConstraints.NONE, insets, 0, 0));
+						
+						
+						JCheckBox room2Presence = new JCheckBox("Presencia en el baño");
+						room2Presence.setName("2");
+						options.add(room2Presence,
+								new GridBagConstraints(3, 0, 1, 1, 0, 0,
+										GridBagConstraints.WEST,
+										GridBagConstraints.NONE, insets, 0, 0));
+						
+						
+						JCheckBox room3Presence = new JCheckBox("Presencia en el dormitorio");
+						room3Presence.setName("3");
+						options.add(room3Presence,
+								new GridBagConstraints(3, 1, 1, 1, 0, 0,
+										GridBagConstraints.WEST,
+										GridBagConstraints.NONE, insets, 0, 0));
+						
+						
+						ActionListener checkBoxHandler = new ActionListener() {							
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								//that's because you can't use roomXPresence in that inner class.
+								JCheckBox cb= (JCheckBox) e.getSource();
+								String name = cb.getName();
+								int room = 0;
+								if (name.equals("0")){
+									room = 0;
+								}
+								if (name.equals("1")){
+									room = 1;
+								}
+								if (name.equals("2")){
+									room = 2;
+								}
+								if (name.equals("3")){
+									room = 3;
+								}
+								
+								env.setRoomPresence(room, cb.isSelected());	
+							}
+						};
+						
+						room0Presence.addActionListener(checkBoxHandler);
+						room1Presence.addActionListener(checkBoxHandler);
+						room2Presence.addActionListener(checkBoxHandler);
+						room3Presence.addActionListener(checkBoxHandler);
+						//LSIN*Ces* Fin
+						
 						Timer timer = new Timer(50, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
 								env.updateDate(50);

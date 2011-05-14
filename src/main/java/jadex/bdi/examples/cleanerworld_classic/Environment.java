@@ -43,7 +43,10 @@ public class Environment implements IEnvironment
 	protected Date date;
 	
 	//LSIN *Alicia* Fin
-
+	//LSIN *Ces* inicio
+	private boolean[] roomPresence = new boolean[4];
+	//LSIM *Ces* fin
+	
 	
 	/** The helper object for bean events. */
 	public SimplePropertyChangeSupport pcs;
@@ -59,6 +62,11 @@ public class Environment implements IEnvironment
 		this.daytime = false; //begins with date time 0
 		this.date= new Date();
 		//LSIN *Alicia* Fin
+		//LSIN *Ces* Inicio
+		for (int i=0; i<getRoomPresence().length; i++){
+			getRoomPresence()[i] = false;
+		}
+		//LSIN *Ces* Fin
 		
 		this.cleaners = new ArrayList();
 		this.wastes = new ArrayList();
@@ -468,5 +476,25 @@ public class Environment implements IEnvironment
 	{
 		pcs.removePropertyChangeListener(listener);
     }
+    
+   /**
+    * Pone en la room deseada el valor de presencia (false si no hay ninguna persona
+    * en la habitación y true si existe alguna persona)
+    * @param room
+    * @param presence
+    */
+	public synchronized void setRoomPresence(int room, boolean presence) {
+		System.out.println("room: " + room +  " presencia: " + presence);
+		
+		this.roomPresence[room] = presence;
+		
+	}
+	/**
+	 * 
+	 * @return array con la presencia en las habitaciones
+	 */
+	public synchronized boolean[] getRoomPresence() {
+		return roomPresence;
+	}
 
 }
