@@ -43,7 +43,13 @@ class AmbrosioPanel extends JPanel {
 
 	/** The latest world view information. */
 	protected DrawData drawdata;
+	
+	/** Para lograr que el despertador parpadee */
+	protected int blink;
 
+	/** Periodo del parpadeo del despertador */
+	protected final int BLINK_PERIOD=6;
+	
 	/**
 	 * Flag to indicate that the draw data is currently updated to avoid
 	 * multiple updates in parallel.
@@ -65,10 +71,13 @@ class AmbrosioPanel extends JPanel {
 	// -------- constructors --------
 
 	/**
-	 * Create a cleaner panel.
+	 * Create an Ambrosio panel.
 	 */
 	public AmbrosioPanel(IExternalAccess agent) {
 		this.agent = agent;
+		// LSIN *Alicia* Inicio
+		this.blink= 0;
+		// LSIN *Alicia* Fin
 	}
 
 	// -------- JPanel methods --------
@@ -117,8 +126,13 @@ class AmbrosioPanel extends JPanel {
 			Image alarm=((ImageIcon) icons.getIcon("clock")).getImage();
 			w = alarm.getWidth(this);
 			h = alarm.getHeight(this);
-			if (Ambrosio.alarm && w > 0 && h > 0) {
-				g.drawImage(alarm, 30, 30, this);
+			if (Ambrosio.isAlarmOn() && w > 0 && h > 0) {
+				if(this.blink<(BLINK_PERIOD/2)){
+					g.drawImage(alarm, 30, 30, this);					
+				}else if(this.blink==BLINK_PERIOD){
+					this.blink=-1;
+				}
+				this.blink++;
 			}
 			
 			//LSIN *Alicia* Fin

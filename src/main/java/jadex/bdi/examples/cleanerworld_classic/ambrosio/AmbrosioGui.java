@@ -49,9 +49,6 @@ public class AmbrosioGui extends JFrame {
 			setLocation(new Point(SGUI.calculateMiddlePosition(AmbrosioGui.this).x,(int) (SGUI.calculateMiddlePosition(this).y*1.88)));
 			setVisible(true);
 		}
-		if (Ambrosio.alarm){
-			
-		}
 		super.paint(g);
 	}
 	// LSIN*Eduardo* Fin
