@@ -144,14 +144,19 @@ class AmbrosioPanel extends JPanel {
 				}
 				this.blink++;
 			}			
-			Image room0 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
-			g.drawImage(room0, 120, 62, this);
-			Image room1 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
-			g.drawImage(room1, 120, 15, this);
-			Image room2 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
-			g.drawImage(room2, 197, 15, this);
-			Image room3 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
-			g.drawImage(room3, 197, 62, this);
+			String[] roomIconString = {"room-empty","room-empty","room-empty","room-empty"};
+			boolean[] roomPresence = Ambrosio.getRoomPresence();			
+			Image[] roomIcon = new Image[4];
+			for(int i=0;i<roomIcon.length;i++){
+				if(roomPresence[i]){
+					roomIconString[i] = "room-full-dark";
+				}
+				roomIcon[i]=((ImageIcon) icons.getIcon(roomIconString[i])).getImage();
+			}
+			g.drawImage(roomIcon[0], 120, 62, this);
+			g.drawImage(roomIcon[1], 120, 15, this);
+			g.drawImage(roomIcon[2], 197, 15, this);
+			g.drawImage(roomIcon[3], 197, 62, this);
 			// LSIN *Alicia* Fin
 		}
 	}
