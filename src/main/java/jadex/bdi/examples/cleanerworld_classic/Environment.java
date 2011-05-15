@@ -1,5 +1,6 @@
 package jadex.bdi.examples.cleanerworld_classic;
 
+import jadex.bdi.examples.cleanerworld_classic.environment.EnvironmentGui;
 import jadex.commons.SimplePropertyChangeSupport;
 
 import java.beans.PropertyChangeListener;
@@ -42,7 +43,19 @@ public class Environment implements IEnvironment
 	/** El objeto Date asociado a la evolución del tiempo del sistema*/
 	protected Date date;
 	
+	// ---- Configuración basuras ----
+	/** Periodo de tiempo en el que se podrían producir basuras (ms) */
+	protected final long WASTE_PERIOD=15000;
+	
+	/** Probabilidad de que se creen nuevas basuras */
+	protected final double WASTE_PROBABILITY= 0.5;
+	
+	/** Contador para controlar que sólo se compruebe una vez por cada 
+	 *  WASTE_PERIOD si hay que poner basuras */
+	protected int isWasteTime;
+	
 	//LSIN *Alicia* Fin
+	
 	//LSIN *Ces* inicio
 	private boolean[] roomPresence = new boolean[4];
 	//LSIM *Ces* fin
@@ -61,6 +74,7 @@ public class Environment implements IEnvironment
 		//LSIN *Alicia* Inicio
 		this.daytime = false; //begins with date time 0
 		this.date= new Date();
+		this.isWasteTime=0;
 		//LSIN *Alicia* Fin
 		//LSIN *Ces* Inicio
 		for (int i=0; i<getRoomPresence().length; i++){
@@ -229,22 +243,23 @@ public class Environment implements IEnvironment
 	//-------- methods --------
 
 
-	//LSIN *Csar* INICIO
+	//LSIN *Alicia* INICIO
 	/**
 	 * Waste generator 
 	 * 
 	 */
-	/*
 	public synchronized void getDirtyRooms(){
-		//generate one waste in each room, every day
-		if (((this.millis%(HALF_DAY*2)) > -25) && ((this.millis%(HALF_DAY*2)) <= 25)){
+		//System.out.println("Evaluando posibilidad de añadir basuras");
+		if(Math.random()<WASTE_PROBABILITY){
+			//System.out.println("Añado basuras");
 			for (int i=0; i < CleanerLocationManager.TOTAL_ROOMS; i++){
 				addWaste(new Waste(CleanerLocationManager.randomLocationInRoomWithMargin(i)));
 			}
+		}else{
+			//System.out.println("No pongo basuras");
 		}
 	}
-	*/
-	//LSIN *Csar* FIN
+	//LSIN *Alicia* FIN
 	
 	/**
 	 *  Get the complete vision.
@@ -286,13 +301,27 @@ public class Environment implements IEnvironment
 	}
 	
 	/**
-	 * Actualizar la fecha
+	 * Get isWasteTime
+	 * @return int isWasteTime
+	 */
+	public synchronized int getIsWasteTime(){
+		return this.isWasteTime;
+	}
+	
+	/**
+	 * Actualizar el tiempo
 	 * 
 	 * @param time tiempo que se ha avanzado
 	 */
 	public synchronized void updateDate(double time){
 		this.date.addTime(time);
 		setDaytime(this.date.isDay());
+		
+		if(isWasteTime<(WASTE_PERIOD/EnvironmentGui.TIMER)){
+			isWasteTime++;
+		}else{
+			isWasteTime=0;
+		}
 	}
 	
 	// LSIN *Alicia* Fin

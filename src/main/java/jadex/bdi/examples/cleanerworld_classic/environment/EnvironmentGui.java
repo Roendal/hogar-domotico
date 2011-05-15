@@ -58,7 +58,11 @@ import javax.swing.event.ChangeListener;
  */
 public class EnvironmentGui extends JFrame {
 
+	// LSIN *Alicia* Inicio
+	/** Tiempo de actualizacion */
+	public final static int TIMER=50;
 	
+	// LSIN *Alicia* Fin 
 	
 	// LSIN*Eduardo* Inicio
 
@@ -712,13 +716,17 @@ public class EnvironmentGui extends JFrame {
 						room3Presence.addActionListener(checkBoxHandler);
 						//LSIN*Ces* Fin
 						
-						Timer timer = new Timer(50, new ActionListener() {
+						Timer timer = new Timer(TIMER, new ActionListener() {
 							public void actionPerformed(ActionEvent e) {
-								env.updateDate(50);
+								
+								if(env.getIsWasteTime()==0){
+									env.getDirtyRooms();
+								}
+								
+								env.updateDate(TIMER);
 								timePast.setText(""+env.getDate().getTimeWatch());
 								map.invalidate();
-								map.repaint();
-								//env.getDirtyRooms();								
+								map.repaint();							
 							}
 						});
 						//LSIN *Alicia* FIN

@@ -1,16 +1,9 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
 import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
-import jadex.bdi.examples.cleanerworld_classic.Chargingstation;
-import jadex.bdi.examples.cleanerworld_classic.Cleaner;
 import jadex.bdi.examples.cleanerworld_classic.Location;
-import jadex.bdi.examples.cleanerworld_classic.MapPoint;
-import jadex.bdi.examples.cleanerworld_classic.Waste;
-import jadex.bdi.examples.cleanerworld_classic.Wastebin;
 import jadex.bdi.examples.cleanerworld_classic.environment.EnvironmentGui;
 import jadex.bdi.runtime.IBDIInternalAccess;
-import jadex.bdi.runtime.IExpression;
-import jadex.bdi.runtime.IGoal;
 import jadex.bridge.ComponentTerminatedException;
 import jadex.bridge.IComponentStep;
 import jadex.bridge.IExternalAccess;
@@ -19,16 +12,12 @@ import jadex.commons.IFuture;
 import jadex.commons.SGUI;
 import jadex.commons.concurrent.SwingDefaultResultListener;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIDefaults;
 
