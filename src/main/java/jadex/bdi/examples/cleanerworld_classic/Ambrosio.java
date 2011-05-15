@@ -10,9 +10,19 @@ public class Ambrosio extends LocationObject {
 	
 	// -------- attributes ----------
 	/** Indica si la alarma está sonando */ 
-	private static boolean alarm = false;
+	private static boolean alarm = false;	
+	private static boolean[] roomPresence = {false,false,false,false};
 	
 	// -------- getters and setters ------
+	
+
+	public static boolean[] getRoomPresence() {
+		return roomPresence;
+	}
+	
+	public static void setRoomPresence(boolean[] roomPresence) {
+		Ambrosio.roomPresence = roomPresence;
+	}
 	
 	/**
 	 * Activar la alarma

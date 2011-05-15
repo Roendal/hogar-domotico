@@ -61,7 +61,19 @@ class AmbrosioPanel extends JPanel {
 					"alarm-off",
 					SGUI
 							.makeIcon(EnvironmentGui.class,
-									"/jadex/bdi/examples/cleanerworld_classic/images/alarm-off.png") });
+									"/jadex/bdi/examples/cleanerworld_classic/images/alarm-off.png"),
+					"room-empty",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/room-empty-dark.png"),
+					"room-full-dark",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/room-full-dark.png"),
+					"room-full-light",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/room-full-light.png") });
 
 	// LSIN *Alicia* Fin
 
@@ -121,7 +133,8 @@ class AmbrosioPanel extends JPanel {
 
 			// Paint the alarm clock when the alarm sounds
 			Image alarmOn = ((ImageIcon) icons.getIcon("alarm-on")).getImage();
-			Image alarmOff = ((ImageIcon) icons.getIcon("alarm-off")).getImage();
+			Image alarmOff = ((ImageIcon) icons.getIcon("alarm-off"))
+					.getImage();
 			g.drawImage(alarmOff, 30, 30, this);
 			if (Ambrosio.isAlarmOn()) {
 				if (this.blink < (BLINK_PERIOD / 2)) {
@@ -130,7 +143,15 @@ class AmbrosioPanel extends JPanel {
 					this.blink = -1;
 				}
 				this.blink++;
-			}
+			}			
+			Image room0 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
+			g.drawImage(room0, 120, 62, this);
+			Image room1 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
+			g.drawImage(room1, 120, 15, this);
+			Image room2 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
+			g.drawImage(room2, 197, 15, this);
+			Image room3 = ((ImageIcon) icons.getIcon("room-empty")).getImage();
+			g.drawImage(room3, 197, 62, this);
 			// LSIN *Alicia* Fin
 		}
 	}

@@ -24,8 +24,7 @@ public class UpdateEnvironmentPlan extends Plan {
 	 * The plan body.
 	 */
 	public void body() {
-		Date date = ((Environment) getBeliefbase().getBelief("environment")
-				.getFact()).getDate();
+		Date date = ((Environment) getBeliefbase().getBelief("environment").getFact()).getDate();
 		getBeliefbase().getBelief("current_date").setFact(date);
 		if (ringedToday) {
 			getBeliefbase().getBelief("alarmcondition").setFact(false);
@@ -44,6 +43,8 @@ public class UpdateEnvironmentPlan extends Plan {
 			// Trazas
 			System.out.println("Día: " + day + " hora: " + hour + ":00");
 		}
+		
+		Ambrosio.setRoomPresence(((Environment) getBeliefbase().getBelief("environment").getFact()).getRoomPresence());
 	}
 
 }
