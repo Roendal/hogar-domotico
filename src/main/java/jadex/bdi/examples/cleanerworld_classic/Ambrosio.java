@@ -12,6 +12,7 @@ public class Ambrosio extends LocationObject {
 	/** Indica si la alarma está sonando */ 
 	private static boolean alarm = false;	
 	private static boolean[] roomPresence = {false,false,false,false};
+	private static boolean daytime = false;
 	
 	// -------- getters and setters ------
 	
@@ -45,9 +46,28 @@ public class Ambrosio extends LocationObject {
 	public static boolean isAlarmOn(){
 		return alarm;
 	}
+	/**
+	 * Get the daytime
+	 * @return true=> day
+	 * 			false=> night
+	 */
+	public static boolean isDaytime() {
+		return daytime;
+	}
+
+	/**
+	 * Set the day time
+	 * @param daytime true=> day;
+	 * 					false => night
+	 */
+	public static void setDaytime(boolean daytime) {
+		Ambrosio.daytime = daytime;
+	}
+	
 	// LSIN *Alicia* Fin
 	
 	// -------- constructors --------
+
 
 	/**
 	 * Create a new Ambrosio.

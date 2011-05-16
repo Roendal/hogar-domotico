@@ -25,6 +25,9 @@ public class UpdateEnvironmentPlan extends Plan {
 	 */
 	public void body() {
 		Date date = ((Environment) getBeliefbase().getBelief("environment").getFact()).getDate();
+		// LSIN *Alicia* Inicio
+		Ambrosio.setDaytime(date.isDay());
+		// LSIN *Alicia* Fin
 		getBeliefbase().getBelief("current_date").setFact(date);
 		if (ringedToday) {
 			getBeliefbase().getBelief("alarmcondition").setFact(false);
@@ -36,6 +39,7 @@ public class UpdateEnvironmentPlan extends Plan {
 		}
 		if (hour != date.getHour()) {
 			hour = date.getHour();
+			
 			if (day != date.getDayNumber()) {
 				day = date.getDayNumber();
 				ringedToday = false;

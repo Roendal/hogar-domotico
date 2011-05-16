@@ -150,6 +150,9 @@ class AmbrosioPanel extends JPanel {
 			for(int i=0;i<roomIcon.length;i++){
 				if(roomPresence[i]){
 					roomIconString[i] = "room-full-dark";
+					if (!Ambrosio.isDaytime()&& (i!=3)){
+						roomIconString[i]= "room-full-light";
+					}
 				}
 				roomIcon[i]=((ImageIcon) icons.getIcon(roomIconString[i])).getImage();
 			}
