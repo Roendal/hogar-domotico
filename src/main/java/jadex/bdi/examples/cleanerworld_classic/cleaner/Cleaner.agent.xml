@@ -69,7 +69,7 @@
 		</belief>
 		
 		<!-- The current room bounds. -->
-		<belief name="my_room"  class="Location">
+		<belief name="my_room"  class="int">
 			<fact>CleanerLocationManager.getInstanceId()</fact>
 		</belief>
 
@@ -238,6 +238,21 @@
 				// ?mbelief = (mbelief (melement_has_name "daytime"))
  			</contextcondition>
  		</performgoal>
+ 		
+		<performgoal name="presencepatrol" exclude="never">
+			<creationcondition  language="jcl">
+				((Environment) $beliefbase.environment).getRoomPresence($beliefbase.my_room)
+			</creationcondition >
+			<dropcondition language="jcl">
+				!((Environment) $beliefbase.environment).getRoomPresence($beliefbase.my_room)
+			</dropcondition>
+			<deliberation>
+				<inhibits ref="performlookforwaste" inhibit="when_in_process"/>
+				<inhibits ref="achievecleanup" inhibit="when_in_process"/>
+				<inhibits ref="performpatrol" inhibit="when_in_process"/>
+				<inhibits ref="maintainbatteryloaded" inhibit="when_in_process"/>
+			</deliberation>
+ 		</performgoal>
 
 		<!-- Sub-level goals -->
 
@@ -351,6 +366,12 @@
 			<body class="PatrolPlan"/>
 			<trigger>
 				<goal ref="performpatrol"/>
+			</trigger>
+		</plan>
+		<plan name="patrol2">
+			<body class="PatrolPlan"/>
+			<trigger>
+				<goal ref="presencepatrol"/>
 			</trigger>
 		</plan>
 
@@ -503,6 +524,7 @@
 			<goals>
 				<initialgoal ref="performlookforwaste"/>
   				<initialgoal ref="performpatrol"/>
+  				<initialgoal ref="presencepatrol"/>
 		  		<initialgoal ref="maintainbatteryloaded"/>
 				<initialgoal ref="performmemorizepositions"/>
 			</goals>

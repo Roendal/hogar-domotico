@@ -525,5 +525,8 @@ public class Environment implements IEnvironment
 	public synchronized boolean[] getRoomPresence() {
 		return roomPresence;
 	}
+	public synchronized boolean getRoomPresence(int room) {
+		return roomPresence[room];
+	}
 
 }
