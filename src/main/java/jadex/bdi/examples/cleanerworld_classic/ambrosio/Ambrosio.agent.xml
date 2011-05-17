@@ -14,12 +14,16 @@
 		<import>java.util.*</import>
 		<import>java.util.logging.*</import>
 		<import>jadex.commons.*</import>
+		<import>jadex.commons.service.*</import>
 		<import>jadex.rules.rulesystem.rules.functions.*</import>
+		<import>jadex.base.fipa.*</import>
 	</imports>
 
 	<capabilities>
 		<capability name="procap"
 			file="jadex.bdi.planlib.protocols.request.Request" />
+		<!-- Include the df capability as dfcap for finding other agents
+			and registering the sentry service. -->
 		<capability name="dfcap" file="jadex.bdi.planlib.df.DF" />
 	</capabilities>
 
@@ -78,7 +82,13 @@
 			</trigger>
 		</plan>
 	</plans>
-	
+	<events>
+		<messageevent name="presence_in_room" type="fipa" direction="send">
+	        <parameter name="performative" class="String" direction="fixed">
+	            <value>SFipa.INFORM</value>
+	        </parameter>
+	    </messageevent>
+	</events>
 	
 
 	<expressions>
@@ -90,12 +100,23 @@
 		<!--		<property name="debugging">true</property>-->
 		<property name="componentviewer.viewerclass">"jadex.bdi.examples.cleanerworld_classic.ambrosio.AmbrosioViewerPanel"
 		</property>
+		<property name="dfservice" class="IFuture">SServiceProvider.getService($scope.getServiceProvider(), IDF.class)</property>
 	</properties>
 
 	<configurations>
 		<configuration name="default">
 			<goals>
+				<initialgoal ref="dfcap.df_register">
+					<parameter ref="description">
+						<value>
+							$propertybase.getProperty("dfservice")
+								.createDFComponentDescription(null, $propertybase.getProperty("dfservice")
+									.createDFServiceDescription("service_ambrosio", "service_ambrosio", "University of Hamburg"))
+						</value>
+					</parameter>
+				</initialgoal>
 				<initialgoal ref="updateenvironment" />
+				<endgoal ref="dfcap.df_deregister"/>
 			</goals>
 		</configuration>
 	</configurations>

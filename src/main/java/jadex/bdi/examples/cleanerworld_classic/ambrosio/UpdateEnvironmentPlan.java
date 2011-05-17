@@ -1,9 +1,22 @@
 package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
 import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
+import jadex.bdi.examples.cleanerworld_classic.Cleaner;
 import jadex.bdi.examples.cleanerworld_classic.Date;
 import jadex.bdi.examples.cleanerworld_classic.Environment;
+import jadex.bdi.runtime.IGoal;
+import jadex.bdi.runtime.IMessageEvent;
 import jadex.bdi.runtime.Plan;
+import jadex.base.fipa.IDF;
+import jadex.base.fipa.IDFComponentDescription;
+import jadex.base.fipa.IDFServiceDescription;
+import jadex.base.fipa.SFipa;
+import jadex.application.runtime.IApplicationExternalAccess;
+import jadex.application.space.agr.AGRSpace;
+import jadex.application.space.agr.Group;
+import jadex.bridge.IComponentIdentifier;
+import jadex.bridge.ISearchConstraints;
+import jadex.commons.service.SServiceProvider;
 
 public class UpdateEnvironmentPlan extends Plan {
 	// -------- constructors --------
@@ -38,9 +51,11 @@ public class UpdateEnvironmentPlan extends Plan {
 			}
 		}
 		if (hour != date.getHour()) {
+			
 			hour = date.getHour();
 			
 			if (day != date.getDayNumber()) {
+				sendPruebaMessage();
 				day = date.getDayNumber();
 				ringedToday = false;
 			}
@@ -48,7 +63,43 @@ public class UpdateEnvironmentPlan extends Plan {
 			System.out.println("Día: " + day + " hora: " + hour + ":00");
 		}
 		
-		Ambrosio.setRoomPresence(((Environment) getBeliefbase().getBelief("environment").getFact()).getRoomPresence());
+		Ambrosio.setRoomPresence(((Environment) getBeliefbase().getBelief("environment").getFact()).getRoomPresence());	
+
+	}
+	
+	private void sendPruebaMessage(){
+		// LSIN *Alicia* Inicio - PRUEBA
+
+		// Create a service description to search for.
+		IDF	df	= (IDF)SServiceProvider.getService(getScope().getServiceProvider(), IDF.class).get(this);
+		IDFServiceDescription sd = df.createDFServiceDescription("service_cleaner", null, null);
+		IDFComponentDescription dfadesc = df.createDFComponentDescription(null, sd);
+
+		// A hack - default is 2! to reach more Agents, we have
+		// to increase the number of possible results.
+		ISearchConstraints constraints = df.createSearchConstraints(-1, 0);
+
+		// Use a subgoal to search
+		IGoal ft = createGoal("dfcap.df_search");
+		ft.getParameter("description").setValue(dfadesc);
+		ft.getParameter("constraints").setValue(constraints);
+
+		dispatchSubgoalAndWait(ft);
+		//Object result = ft.getResult();
+		IDFComponentDescription[] cleaners = (IDFComponentDescription[])ft.getParameterSet("result").getValues();
+		System.out.println(cleaners.length);
+		if(cleaners!=null && cleaners.length>0){
+			for (int i=0; i<cleaners.length; i++){
+				System.out.println("Mando un mensaje a :"+i);
+				IMessageEvent mevent = createMessageEvent("presence_in_room");
+				mevent.getParameterSet(SFipa.RECEIVERS).addValue(cleaners[i].getName());
+				mevent.getParameter(SFipa.CONTENT).setValue("HELLO!! Day: "+ this.hour+ ". Day: "+this.day);
+				sendMessage(mevent);
+
+			}
+		    
+		}
+		// LSIN *Alicia* Fin - PRUEBA
 	}
 
 }

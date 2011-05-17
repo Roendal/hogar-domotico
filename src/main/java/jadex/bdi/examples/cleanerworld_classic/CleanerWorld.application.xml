@@ -5,14 +5,14 @@
 <applicationtype xmlns="http://jadex.sourceforge.net/jadex-application"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://jadex.sourceforge.net/jadex-application 
-	                    http://jadex.sourceforge.net/jadex-application-2.0.xsd"
+	                    http://jadex.sourceforge.net/jadex-application-2.0.xsd"	                    
 	name="CleanerWorld" package="jadex.bdi.examples.cleanerworld">
 
 	<imports>
 		<import>jadex.bdi.examples.cleanerworld_classic.*</import>
 		<import>java.awt.Rectangle</import>
 	</imports>
-
+	
 	<componenttypes>
 		<componenttype name="Environment"
 			filename="jadex/bdi/examples/cleanerworld_classic/environment/Environment.agent.xml" />

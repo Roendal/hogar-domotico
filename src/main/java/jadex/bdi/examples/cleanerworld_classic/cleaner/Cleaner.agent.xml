@@ -24,9 +24,17 @@
 		<import>java.util.logging.*</import>
 		<import>java.awt.Rectangle</import>
 		<import>jadex.commons.*</import>
+		<import>jadex.commons.service.*</import>
 		<import>jadex.rules.rulesystem.rules.functions.*</import>
+		<import>jadex.base.fipa.*</import>
 	</imports>
 
+	<capabilities>
+		<!-- Include the df capability as dfcap for finding other agents
+			and registering the production service. -->
+		<capability name="dfcap" file="jadex.bdi.planlib.df.DF"/>
+	</capabilities>
+	
 	<beliefs>
 		<belief name="environment" class="IEnvironment">
 			<fact>Environment.getInstance()</fact>
@@ -473,8 +481,24 @@
 				<goal ref="get_vision_action"/>
 			</trigger>
 		</plan>
+		
+		<plan name="prueba_plan">
+			<body class="PruebaPlan"/>
+			<trigger>
+				<messageevent ref="move_in_room"/>
+			</trigger>
+		</plan>
 	</plans>
 
+	<events>
+		<messageevent name="move_in_room" type="fipa" direction="receive">
+	        <parameter name="performative" class="String" direction="fixed">
+	            <value>SFipa.INFORM</value>
+	        </parameter>
+	        <match>$content instanceof String</match>
+	    </messageevent>	    
+	</events>
+	
 	<expressions>
 		<!-- Query all objects from the beliefs that are currently in sight.-->
 		<expression name="query_in_vision_objects">
@@ -517,16 +541,28 @@
 		<!--<property name="logging.level">Level.FINE</property>-->
 		<!-- <property name="debugging">true</property> -->
 		<property name="componentviewer.viewerclass">"jadex.bdi.examples.cleanerworld_classic.cleaner.CleanerViewerPanel"</property>
+		<property name="dfservice" class="IFuture">SServiceProvider.getService($scope.getServiceProvider(), IDF.class)</property>
 	</properties>
 
 	<configurations>
 		<configuration name="default">
 			<goals>
+				<!-- Create a goal for registering at the df. -->
+				<initialgoal ref="dfcap.df_register">
+					<parameter ref="description">
+						<value>
+							$propertybase.getProperty("dfservice")
+								.createDFComponentDescription(null, $propertybase.getProperty("dfservice")
+									.createDFServiceDescription("service_cleaner", "service_cleaner", "University of Hamburg"))
+						</value>
+					</parameter>
+				</initialgoal>
 				<initialgoal ref="performlookforwaste"/>
   				<initialgoal ref="performpatrol"/>
   				<initialgoal ref="presencepatrol"/>
 		  		<initialgoal ref="maintainbatteryloaded"/>
 				<initialgoal ref="performmemorizepositions"/>
+				<endgoal ref="dfcap.df_deregister"/>
 			</goals>
 		</configuration>
 	</configurations>
