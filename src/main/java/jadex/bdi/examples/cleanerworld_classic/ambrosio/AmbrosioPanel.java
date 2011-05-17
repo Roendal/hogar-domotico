@@ -73,7 +73,15 @@ class AmbrosioPanel extends JPanel {
 					"room-full-light",
 					SGUI
 							.makeIcon(EnvironmentGui.class,
-									"/jadex/bdi/examples/cleanerworld_classic/images/room-full-light.png") });
+									"/jadex/bdi/examples/cleanerworld_classic/images/room-full-light.png"),
+					"cleaner-ok",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-ok.png"),
+					"cleaner-fail",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-fail.png") });
 
 	// LSIN *Alicia* Fin
 
@@ -143,23 +151,39 @@ class AmbrosioPanel extends JPanel {
 					this.blink = -1;
 				}
 				this.blink++;
-			}			
-			String[] roomIconString = {"room-empty","room-empty","room-empty","room-empty"};
-			boolean[] roomPresence = Ambrosio.getRoomPresence();			
+			}
+			String[] roomIconString = { "room-empty", "room-empty",
+					"room-empty", "room-empty" };
+			boolean[] roomPresence = Ambrosio.getRoomPresence();
 			Image[] roomIcon = new Image[4];
-			for(int i=0;i<roomIcon.length;i++){
-				if(roomPresence[i]){
+			for (int i = 0; i < roomIcon.length; i++) {
+				if (roomPresence[i]) {
 					roomIconString[i] = "room-full-dark";
-					if (!Ambrosio.isDaytime()&& (i!=3)){
-						roomIconString[i]= "room-full-light";
+					if (!Ambrosio.isDaytime() && (i != 3)) {
+						roomIconString[i] = "room-full-light";
 					}
 				}
-				roomIcon[i]=((ImageIcon) icons.getIcon(roomIconString[i])).getImage();
+				roomIcon[i] = ((ImageIcon) icons.getIcon(roomIconString[i]))
+						.getImage();
 			}
 			g.drawImage(roomIcon[0], 120, 62, this);
 			g.drawImage(roomIcon[1], 120, 15, this);
 			g.drawImage(roomIcon[2], 197, 15, this);
 			g.drawImage(roomIcon[3], 197, 62, this);
+			
+			boolean[] cleanerState = {true,true,false,true};
+			Image[] cleanerStateIcon = new Image[4];
+			for (int i = 0; i < cleanerState.length; i++) {
+				if(cleanerState[i]){
+					cleanerStateIcon[i] = ((ImageIcon) icons.getIcon("cleaner-ok")).getImage();
+				}else{
+					cleanerStateIcon[i] = ((ImageIcon) icons.getIcon("cleaner-fail")).getImage();					
+				}
+			}
+			g.drawImage(cleanerStateIcon[0], 300, 62, this);
+			g.drawImage(cleanerStateIcon[1], 300, 30, this);
+			g.drawImage(cleanerStateIcon[2], 362, 30, this);
+			g.drawImage(cleanerStateIcon[3], 362, 62, this);
 			// LSIN *Alicia* Fin
 		}
 	}

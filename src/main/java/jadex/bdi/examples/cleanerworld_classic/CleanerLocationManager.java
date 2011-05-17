@@ -58,8 +58,6 @@ public class CleanerLocationManager {
 		Location upper_left = rooms[room][UPPER_LEFT];
 		Location bottom_right = rooms[room][BOTTOM_RIGHT];
 		Location rectified = (Location) location.clone();
-		double width = bottom_right.getX() - upper_left.getX();
-		double height = upper_left.getY() - bottom_right.getY();
 
 		if (rectified.getX() < upper_left.getX()) {
 			// rectified.setX(upper_left.getX());

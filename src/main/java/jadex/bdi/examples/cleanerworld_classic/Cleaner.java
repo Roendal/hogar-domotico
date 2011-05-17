@@ -1,7 +1,5 @@
 package jadex.bdi.examples.cleanerworld_classic;
 
-import java.awt.Rectangle;
-
 import jadex.commons.SUtil;
 
 
