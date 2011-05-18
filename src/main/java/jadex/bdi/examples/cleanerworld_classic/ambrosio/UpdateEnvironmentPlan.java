@@ -3,6 +3,7 @@ package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.Date;
 import jadex.bdi.examples.cleanerworld_classic.Environment;
+import jadex.bdi.examples.cleanerworld_classic.Status;
 import jadex.bdi.runtime.IGoal;
 import jadex.bdi.runtime.IMessageEvent;
 import jadex.bdi.runtime.Plan;
@@ -80,21 +81,18 @@ public class UpdateEnvironmentPlan extends Plan {
 		ft.getParameter("description").setValue(dfadesc);
 		ft.getParameter("constraints").setValue(constraints);
 
+		
 		dispatchSubgoalAndWait(ft);
 		//Object result = ft.getResult();
 		IDFComponentDescription[] cleaners = (IDFComponentDescription[])ft.getParameterSet("result").getValues();
 		//System.out.println(cleaners.length);
 		if(cleaners!=null && cleaners.length>0){
 			for (int i=0; i<cleaners.length; i++){
-				System.out.println("Mando un mensaje a :"+i);
 				IMessageEvent mevent = createMessageEvent("request");
 				mevent.getParameterSet(SFipa.RECEIVERS).addValue(cleaners[i].getName());
-				mevent.getParameter(SFipa.CONTENT).setValue("HELLO!! Hour: "+ this.hour+ ". Day: "+this.day);
-				
 				IMessageEvent reply= sendMessageAndWait(mevent, 10000);
 				String messageContent = (String)reply.getParameter(SFipa.CONTENT).getValue();
-				System.out.println(messageContent);
-
+				System.out.println("Recibido un estado "+ messageContent);
 			}
 		    
 		}
