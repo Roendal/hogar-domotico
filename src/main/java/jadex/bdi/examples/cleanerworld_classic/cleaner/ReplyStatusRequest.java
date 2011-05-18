@@ -15,12 +15,16 @@ public class ReplyStatusRequest extends Plan {
 		IMessageEvent message = (IMessageEvent) getReason();
 		// Responder
 		IMessageEvent ans = getEventbase().createReply(message, "inform");
-		if (Math.random() < 0.75) {
+		double dice = Math.random();
+		if (dice < 0.95) {
 			ans.getParameter(SFipa.CONTENT).setValue(Status.OK);
-		} else {
+		} else if (0.95 <= dice && dice < 1.0) {
 			ans.getParameter(SFipa.CONTENT).setValue(Status.ERROR);
+		} else {
+			ans.getParameter(SFipa.CONTENT).setValue(Status.OFFLINE);
 		}
 		sendMessage(ans);
+
 	}
 
 }

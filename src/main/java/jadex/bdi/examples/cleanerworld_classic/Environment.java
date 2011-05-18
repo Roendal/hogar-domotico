@@ -104,8 +104,8 @@ public class Environment implements IEnvironment
 		//LSIN*Eduardo* Inicio
 		addWastebin(new Wastebin(new Location(0.214, 0.075), 20));
 		addWastebin(new Wastebin(new Location(0.214, 0.935), 20));
-		addWastebin(new Wastebin(new Location(0.87, 0.075), 20));
 		addWastebin(new Wastebin(new Location(0.87, 0.935), 20));
+		addWastebin(new Wastebin(new Location(0.87, 0.075), 20));
 		addChargingStation(new Chargingstation(new Location(0.254, 0.075)));
 		addChargingStation(new Chargingstation(new Location(0.254, 0.935)));
 		addChargingStation(new Chargingstation(new Location(0.91, 0.075)));

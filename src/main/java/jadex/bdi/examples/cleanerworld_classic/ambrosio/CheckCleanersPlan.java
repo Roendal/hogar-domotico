@@ -5,6 +5,8 @@ import jadex.base.fipa.IDFComponentDescription;
 import jadex.base.fipa.IDFServiceDescription;
 import jadex.base.fipa.SFipa;
 import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
+import jadex.bdi.examples.cleanerworld_classic.CleanerLocationManager;
+import jadex.bdi.examples.cleanerworld_classic.Status;
 import jadex.bdi.runtime.IGoal;
 import jadex.bdi.runtime.IMessageEvent;
 import jadex.bdi.runtime.Plan;
@@ -46,27 +48,41 @@ public class CheckCleanersPlan extends Plan {
 		ft.getParameter("constraints").setValue(constraints);
 
 		dispatchSubgoalAndWait(ft);
-		// Object result = ft.getResult();
 		IDFComponentDescription[] cleaners = (IDFComponentDescription[]) ft
 				.getParameterSet("result").getValues();
-		// System.out.println(cleaners.length);
-		if (cleaners != null && cleaners.length > 0) {
-			for (int i = 0; i < cleaners.length; i++) {
-				IMessageEvent mevent = createMessageEvent("request");
-				mevent.getParameterSet(SFipa.RECEIVERS).addValue(
-						cleaners[i].getName());
-				IMessageEvent reply = sendMessageAndWait(mevent, 10000);
-				// Y SI MUERE ?
-				String messageContent = (String) reply.getParameter(
-						SFipa.CONTENT).getValue();
+
+		while (cleaners == null
+				|| cleaners.length < CleanerLocationManager.TOTAL_CLEANERS) {
+			waitFor(100);
+			ft = createGoal("dfcap.df_search");
+			ft.getParameter("description").setValue(dfadesc);
+			ft.getParameter("constraints").setValue(constraints);
+			dispatchSubgoalAndWait(ft);
+			cleaners = (IDFComponentDescription[]) ft.getParameterSet("result")
+					.getValues();
+		}
+
+		for (int i = 0; i < cleaners.length; i++) {
+			IMessageEvent mevent = createMessageEvent("request");
+			mevent.getParameterSet(SFipa.RECEIVERS).addValue(
+					cleaners[i].getName());
+			IMessageEvent reply = null;
+			// Y SI MUERE ?
+			try {
+				reply = sendMessageAndWait(mevent, 1000);
+				System.out.println(reply.toString());
 				Ambrosio.cleanersStatus[i] = (String) reply.getParameter(
 						SFipa.CONTENT).getValue();
+			} catch (Exception e) {
+				Ambrosio.cleanersStatus[i] = Status.UNKNOWN;				
 			}
-			System.out.println("Estado limpiadores: " + Ambrosio.cleanersStatus[0]
-					+ ", " + Ambrosio.cleanersStatus[1] + ", "
-					+ Ambrosio.cleanersStatus[2] + ", "
-					+ Ambrosio.cleanersStatus[3] + "");
+			
 		}
+		System.out.println("Estado limpiadores: " + Ambrosio.cleanersStatus[0]
+				+ ", " + Ambrosio.cleanersStatus[1] + ", "
+				+ Ambrosio.cleanersStatus[2] + ", "
+				+ Ambrosio.cleanersStatus[3] + "");
+
 		// LSIN *Alicia* Fin - PRUEBA
 	}
 

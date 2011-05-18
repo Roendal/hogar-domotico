@@ -79,10 +79,18 @@ class AmbrosioPanel extends JPanel {
 					SGUI
 							.makeIcon(EnvironmentGui.class,
 									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-ok.png"),
-					"cleaner-fail",
+					"cleaner-error",
 					SGUI
 							.makeIcon(EnvironmentGui.class,
-									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-fail.png") });
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-fail.png"),
+					"cleaner-offline",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-off.png"),
+					"cleaner-unknown",
+					SGUI
+							.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-unknown.png") });
 
 	// LSIN *Alicia* Fin
 
@@ -171,13 +179,21 @@ class AmbrosioPanel extends JPanel {
 			g.drawImage(roomIcon[1], 120, 15, this);
 			g.drawImage(roomIcon[2], 197, 15, this);
 			g.drawImage(roomIcon[3], 197, 62, this);
-			
+
 			Image[] cleanerStateIcon = new Image[4];
 			for (int i = 0; i < Ambrosio.cleanersStatus.length; i++) {
-				if(Ambrosio.cleanersStatus[i].equals(Status.OK)){
-					cleanerStateIcon[i] = ((ImageIcon) icons.getIcon("cleaner-ok")).getImage();
-				}else{
-					cleanerStateIcon[i] = ((ImageIcon) icons.getIcon("cleaner-fail")).getImage();					
+				if (Ambrosio.cleanersStatus[i].equals(Status.OK)) {
+					cleanerStateIcon[i] = ((ImageIcon) icons
+							.getIcon("cleaner-ok")).getImage();
+				} else if (Ambrosio.cleanersStatus[i].equals(Status.OFFLINE)) {
+					cleanerStateIcon[i] = ((ImageIcon) icons
+							.getIcon("cleaner-offline")).getImage();
+				}else if (Ambrosio.cleanersStatus[i].equals(Status.ERROR)) {
+					cleanerStateIcon[i] = ((ImageIcon) icons
+							.getIcon("cleaner-error")).getImage();
+				} else {
+					cleanerStateIcon[i] = ((ImageIcon) icons
+							.getIcon("cleaner-unknown")).getImage();
 				}
 			}
 			g.drawImage(cleanerStateIcon[0], 300, 62, this);
