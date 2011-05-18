@@ -2,6 +2,7 @@ package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 
 import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.Location;
+import jadex.bdi.examples.cleanerworld_classic.Status;
 import jadex.bdi.examples.cleanerworld_classic.environment.EnvironmentGui;
 import jadex.bdi.runtime.IBDIInternalAccess;
 import jadex.bridge.ComponentTerminatedException;
@@ -171,10 +172,9 @@ class AmbrosioPanel extends JPanel {
 			g.drawImage(roomIcon[2], 197, 15, this);
 			g.drawImage(roomIcon[3], 197, 62, this);
 			
-			boolean[] cleanerState = {true,true,false,true};
 			Image[] cleanerStateIcon = new Image[4];
-			for (int i = 0; i < cleanerState.length; i++) {
-				if(cleanerState[i]){
+			for (int i = 0; i < Ambrosio.cleanersStatus.length; i++) {
+				if(Ambrosio.cleanersStatus[i].equals(Status.OK)){
 					cleanerStateIcon[i] = ((ImageIcon) icons.getIcon("cleaner-ok")).getImage();
 				}else{
 					cleanerStateIcon[i] = ((ImageIcon) icons.getIcon("cleaner-fail")).getImage();					

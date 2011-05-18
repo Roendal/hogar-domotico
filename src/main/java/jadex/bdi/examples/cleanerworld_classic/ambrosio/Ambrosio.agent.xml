@@ -55,6 +55,11 @@
 	<goals>
 		<performgoal name="updateenvironment" exclude="never">
 		</performgoal>
+		<performgoal name="performcheckcleaners">		
+			<deliberation>
+				<inhibits ref="updateenvironment"/>
+			</deliberation>	
+		</performgoal>
 		<performgoal name="activatealarmgoal" exclude="never">
 			<creationcondition  language="jcl">
 				$beliefbase.alarmcondition
@@ -79,6 +84,12 @@
 			<body class="ActivateAlarmPlan" />
 			<trigger>
 				<goal ref="activatealarmgoal" />
+			</trigger>
+		</plan>
+		<plan name="checkcleaners">
+			<body class="CheckCleanersPlan" />
+			<trigger>
+				<goal ref="performcheckcleaners" />
 			</trigger>
 		</plan>
 	</plans>
