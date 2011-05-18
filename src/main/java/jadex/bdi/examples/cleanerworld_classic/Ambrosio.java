@@ -12,6 +12,7 @@ public class Ambrosio extends LocationObject {
 	/** Indica si la alarma está sonando */ 
 	private static boolean alarm = false;	
 	private static boolean[] roomPresence = {false,false,false,false};
+	public static String[] cleanersStatus = {Status.OFFLINE,Status.OFFLINE,Status.OFFLINE,Status.OFFLINE};
 	private static boolean daytime = false;
 	
 	// -------- getters and setters ------

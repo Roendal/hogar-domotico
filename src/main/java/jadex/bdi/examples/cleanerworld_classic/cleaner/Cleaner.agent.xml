@@ -482,8 +482,8 @@
 			</trigger>
 		</plan>
 		
-		<plan name="prueba_plan">
-			<body class="PruebaPlan"/>
+		<plan name="replystatusrequest">
+			<body class="ReplyStatusRequest"/>
 			<trigger>
 				<messageevent ref="request"/>
 			</trigger>
