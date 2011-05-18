@@ -67,10 +67,8 @@ public class CheckCleanersPlan extends Plan {
 			mevent.getParameterSet(SFipa.RECEIVERS).addValue(
 					cleaners[i].getName());
 			IMessageEvent reply = null;
-			// Y SI MUERE ?
 			try {
 				reply = sendMessageAndWait(mevent, 1000);
-				System.out.println(reply.toString());
 				Ambrosio.cleanersStatus[i] = (String) reply.getParameter(
 						SFipa.CONTENT).getValue();
 			} catch (Exception e) {
