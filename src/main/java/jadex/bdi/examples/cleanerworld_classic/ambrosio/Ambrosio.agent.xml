@@ -83,11 +83,19 @@
 		</plan>
 	</plans>
 	<events>
-		<messageevent name="presence_in_room" type="fipa" direction="send">
-	        <parameter name="performative" class="String" direction="fixed">
-	            <value>SFipa.INFORM</value>
-	        </parameter>
-	    </messageevent>
+	  <messageevent name="request" type="fipa" direction="send">
+	    <parameter name="performative" class="String">
+	      <value>SFipa.REQUEST</value>
+	    </parameter>
+	    <parameter name="conversation_id" class="String">
+	      <value>SFipa.createUniqueId($scope.getAgentName())</value>
+	    </parameter>
+	  </messageevent>
+	  <messageevent name="inform" type="fipa" direction="receive">
+	    <parameter name="performative" class="String" direction="fixed">
+	      <value>SFipa.INFORM</value>
+	    </parameter>
+	  </messageevent>
 	</events>
 	
 

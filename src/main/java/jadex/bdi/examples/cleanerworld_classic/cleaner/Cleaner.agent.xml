@@ -485,18 +485,22 @@
 		<plan name="prueba_plan">
 			<body class="PruebaPlan"/>
 			<trigger>
-				<messageevent ref="move_in_room"/>
+				<messageevent ref="request"/>
 			</trigger>
 		</plan>
 	</plans>
 
 	<events>
-		<messageevent name="move_in_room" type="fipa" direction="receive">
-	        <parameter name="performative" class="String" direction="fixed">
-	            <value>SFipa.INFORM</value>
-	        </parameter>
-	        <match>$content instanceof String</match>
-	    </messageevent>	    
+	  <messageevent name="request" type="fipa" direction="receive">
+	    <parameter name="performative" class="String" direction="fixed">
+	      <value>SFipa.REQUEST</value>
+	    </parameter>
+	  </messageevent>
+	  <messageevent name="inform" type="fipa" direction="send">
+	    <parameter name="performative" class="String">
+	      <value>SFipa.INFORM</value>
+	    </parameter>
+	  </messageevent>    
 	</events>
 	
 	<expressions>
