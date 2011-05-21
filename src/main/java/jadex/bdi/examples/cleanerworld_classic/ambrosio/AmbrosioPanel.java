@@ -36,9 +36,15 @@ class AmbrosioPanel extends JPanel {
 
 	/** Para lograr que el despertador parpadee */
 	protected int blink;
+	
+	/** Para lograr que el piloto de los cubos se encienda un tiempo */
+	protected int wperiod;
 
 	/** Periodo del parpadeo del despertador */
 	protected final int BLINK_PERIOD = 6;
+	
+	/** Periodo de encendido del piloto de los cubos de basura */
+	protected final int WASTE_PERIOD = 24;
 
 	/**
 	 * Flag to indicate that the draw data is currently updated to avoid
@@ -90,7 +96,16 @@ class AmbrosioPanel extends JPanel {
 					"cleaner-unknown",
 					SGUI
 							.makeIcon(EnvironmentGui.class,
-									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-unknown.png") });
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleaner-unknown.png"),
+					"cleanup-on",				
+					SGUI
+						.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleanup-on.png"),
+					"cleanup-off",				
+					SGUI
+						.makeIcon(EnvironmentGui.class,
+									"/jadex/bdi/examples/cleanerworld_classic/images/cleanup-off.png")
+					});
 
 	// LSIN *Alicia* Fin
 
@@ -104,6 +119,8 @@ class AmbrosioPanel extends JPanel {
 		// LSIN *Alicia* Inicio
 		this.blink = 0;
 		// LSIN *Alicia* Fin
+		this.wperiod = 0;
+	
 	}
 
 	// -------- JPanel methods --------
@@ -201,6 +218,21 @@ class AmbrosioPanel extends JPanel {
 			g.drawImage(cleanerStateIcon[2], 362, 30, this);
 			g.drawImage(cleanerStateIcon[3], 362, 62, this);
 			// LSIN *Alicia* Fin
+			//LSIN*Ces* Inicio
+			Image cleanUpOn = ((ImageIcon) icons.getIcon("cleanup-on")).getImage();
+			Image cleanUpOff = ((ImageIcon) icons.getIcon("cleanup-off")).getImage();
+			g.drawImage(cleanUpOff, 580, 30, this);
+			
+			if (Ambrosio.isCleanUp()) {
+				if (this.wperiod < (WASTE_PERIOD / 2)) {
+					g.drawImage(cleanUpOn, 580, 30, this);
+				} else if (this.wperiod == WASTE_PERIOD) {
+					Ambrosio.setCleanUp(false);
+					this.wperiod = -1;
+				}
+				this.wperiod++;
+			}
+			//LSIN *Ces* Fin
 		}
 	}
 

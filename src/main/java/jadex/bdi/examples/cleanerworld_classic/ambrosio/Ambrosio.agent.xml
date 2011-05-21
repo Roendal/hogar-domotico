@@ -49,6 +49,13 @@
 			<fact>false</fact>
 		</belief>
 		
+		<belief name="waste_levels" class="Wastebin">
+			<fact>$beliefbase.environment.getWastebins()</fact>
+		</belief>
+		
+		<belief name="cleanup" class="boolean">
+			<fact>false</fact>
+		</belief>
 		
 	</beliefs>
 
@@ -71,6 +78,18 @@
 				<inhibits ref="updateenvironment" inhibit="when_in_process"/>
 			</deliberation>	
 		</performgoal>
+		
+		<performgoal name="activateEmptyTrashGoal" exclude="never">
+			<creationcondition  language="jcl">
+				$beliefbase.cleanup
+			</creationcondition >
+			<dropcondition language="jcl">
+				!$beliefbase.cleanup
+			</dropcondition>	
+			<deliberation>
+				<inhibits ref="updateenvironment" inhibit="when_in_process"/>
+			</deliberation>	
+		</performgoal>
 	</goals>
 
 	<plans>
@@ -80,16 +99,25 @@
 				<goal ref="updateenvironment" />
 			</trigger>
 		</plan>
+		
 		<plan name="activatealarm">
 			<body class="ActivateAlarmPlan" />
 			<trigger>
 				<goal ref="activatealarmgoal" />
 			</trigger>
 		</plan>
+		
 		<plan name="checkcleaners">
 			<body class="CheckCleanersPlan" />
 			<trigger>
 				<goal ref="performcheckcleaners" />
+			</trigger>
+		</plan>
+		
+		<plan name="EmptyBins">
+			<body class="EmptyTrashPlan" />
+			<trigger>
+				<goal ref="activateEmptyTrashGoal" />
 			</trigger>
 		</plan>
 	</plans>

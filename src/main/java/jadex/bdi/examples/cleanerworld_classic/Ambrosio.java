@@ -14,6 +14,7 @@ public class Ambrosio extends LocationObject {
 	private static boolean[] roomPresence = {false,false,false,false};
 	public static String[] cleanersStatus = {Status.OFFLINE,Status.OFFLINE,Status.OFFLINE,Status.OFFLINE};
 	private static boolean daytime = false;
+	public static boolean cleanup = false;
 	
 	// -------- getters and setters ------
 	
@@ -86,5 +87,15 @@ public class Ambrosio extends LocationObject {
 		return activate;
 	}
 	// LSIN*Eduardo* Fin
+	
+	//LSIN*Ces* Inicio
+	public static void setCleanUp(boolean clean){
+		cleanup = clean;
+	}
+	
+	public static boolean isCleanUp(){
+		return cleanup;
+	}
+	//LSIN*Ces* fin
 
 }

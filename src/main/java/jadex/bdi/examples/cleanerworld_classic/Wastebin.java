@@ -187,6 +187,17 @@ public class Wastebin extends LocationObject
 	{
 		return wastes.size() >= capacity;
 	}
+	
+	//LSIN*Ces* Inicio
+	/**
+	 *  
+	 *  @return the number of wastes which one wastebin has.
+	 */
+	public int getNumWastes()
+	{
+		return wastes.size();
+	}
+	//LSIN*Ces* Fin
 
 	/**
 	 *  Empty the waste bin.

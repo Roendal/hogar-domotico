@@ -3,6 +3,7 @@ package jadex.bdi.examples.cleanerworld_classic.ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.Ambrosio;
 import jadex.bdi.examples.cleanerworld_classic.Date;
 import jadex.bdi.examples.cleanerworld_classic.Environment;
+import jadex.bdi.examples.cleanerworld_classic.Wastebin;
 import jadex.bdi.runtime.IGoal;
 import jadex.bdi.runtime.Plan;
 
@@ -12,7 +13,8 @@ public class UpdateEnvironmentPlan extends Plan {
 	private static int hour = -1;
 	private static int day = -1;
 	private static boolean ringedToday = false;
-
+	
+	private final int NUM_WASTES_UNTIL_CLEANUP = 18; 
 	/**
 	 * Create a new plan.
 	 */
@@ -56,6 +58,17 @@ public class UpdateEnvironmentPlan extends Plan {
 
 		Ambrosio.setRoomPresence(((Environment) getBeliefbase().getBelief(
 				"environment").getFact()).getRoomPresence());
+		
+		//LSIN *Ces* INICIO
+		Wastebin[] papeleras = (Wastebin[]) getBeliefbase().getBelief("waste_levels").getFact();
+		boolean triggerEmptyTrashPlan = false;
+		for (Wastebin e : papeleras) {
+			//getBeliefbase().getBelief("waste1").setFact(e);
+			if(e.getNumWastes() > NUM_WASTES_UNTIL_CLEANUP) 
+				triggerEmptyTrashPlan = true;
+		}
+		getBeliefbase().getBelief("cleanup").setFact(triggerEmptyTrashPlan);
+		//LSIN *Ces* FIN
 
 	}
 }
