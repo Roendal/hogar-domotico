@@ -429,7 +429,7 @@ public class Environment implements IEnvironment
 			else
 			{
 				int age = ((Integer)ages.get(cls[i])).intValue();
-				if(age>1000000000)
+				if(age>100)
 				{
 					removeCleaner(cls[i]);
 					ages.remove(cls[i]);
