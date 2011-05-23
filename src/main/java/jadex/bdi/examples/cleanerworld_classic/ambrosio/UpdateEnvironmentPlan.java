@@ -59,16 +59,15 @@ public class UpdateEnvironmentPlan extends Plan {
 		Ambrosio.setRoomPresence(((Environment) getBeliefbase().getBelief(
 				"environment").getFact()).getRoomPresence());
 		
-		//LSIN *Ces* INICIO
+		//LSIN*Ces* Inicio
 		Wastebin[] papeleras = (Wastebin[]) getBeliefbase().getBelief("waste_levels").getFact();
 		boolean triggerEmptyTrashPlan = false;
 		for (Wastebin e : papeleras) {
-			//getBeliefbase().getBelief("waste1").setFact(e);
 			if(e.getNumWastes() > NUM_WASTES_UNTIL_CLEANUP) 
 				triggerEmptyTrashPlan = true;
 		}
 		getBeliefbase().getBelief("cleanup").setFact(triggerEmptyTrashPlan);
-		//LSIN *Ces* FIN
+		//LSIN*Ces* Fin
 
 	}
 }
